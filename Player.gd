@@ -12,7 +12,13 @@ var state = "move"
 var dir = 1
 #var has_jump = true
 
-func _physics_process(delta):
+func _ready():
+	#Hitbox setup
+	#instace hitbox (to-do)
+	
+	$Hitbox.set_physics_process(false)
+
+func _process(delta):
 #	motion.y += GRAVITY
 	var friction = true
 	
@@ -22,7 +28,6 @@ func _physics_process(delta):
 				state = "attack1"
 				$AnimatedSprite.play("attack1")
 				$AnimatedSprite.offset.x = 5 * dir
-				get_parent().get_node("Hitbox")
 			elif Input.is_action_just_pressed("shift"):
 				motion.x = ROLL_SPEED * dir
 				state = "roll"
@@ -56,15 +61,28 @@ func _physics_process(delta):
 		"roll":
 			friction = false
 		"attack1":
-			if $AnimatedSprite.frame >= 2 and $AnimatedSprite.frame <= 4 and Input.is_action_just_pressed("lclick"):
-				state = "attack2"
-				$AnimatedSprite.play("attack2")
-				$AnimatedSprite.offset.x = 19 * dir
+			if frame_in_range(0, 1):
+				$Hitbox.set_physics_process(true)
+			else:
+				$Hitbox.set_physics_process(false)
+				if frame_in_range(2, 4) and Input.is_action_just_pressed("lclick"):
+					state = "attack2"
+					$AnimatedSprite.play("attack2")
+					$AnimatedSprite.offset.x = 19 * dir
 		"attack2":
-			if $AnimatedSprite.frame >= 2 and $AnimatedSprite.frame <= 4 and Input.is_action_just_pressed("lclick"):
-				state = "attack3"
-				$AnimatedSprite.play("attack3")
-				$AnimatedSprite.offset.x = 19 * dir
+			if frame_in_range(1, 2):
+				$Hitbox.set_physics_process(true)
+			else:
+				$Hitbox.set_physics_process(false)
+				if frame_in_range(3, 4) and Input.is_action_just_pressed("lclick"):
+					state = "attack3"
+					$AnimatedSprite.play("attack3")
+					$AnimatedSprite.offset.x = 19 * dir
+		"attack3":
+			if frame_in_range(2, 2):
+				$Hitbox.set_physics_process(true)
+			else:
+				$Hitbox.set_physics_process(false)
 
 	if friction == true:
 		motion.x = lerp(motion.x, 0, 0.2)
@@ -79,3 +97,6 @@ func _physics_process(delta):
 func _on_AnimatedSprite_animation_finished():
 	if state == "roll" or state == "attack1" or state == "attack2" or state == "attack3":
 		state = "move"
+		
+func frame_in_range(low, high):
+	return $AnimatedSprite.frame >= low and $AnimatedSprite.frame <= high

@@ -216,4 +216,4 @@ __meta__ = {
 shape = SubResource( 6 )
 [connection signal="animation_finished" from="Knight/AnimatedSprite" to="Knight" method="_on_AnimatedSprite_animation_finished"]
 [connection signal="animation_finished" from="Player/AnimatedSprite" to="Player" method="_on_AnimatedSprite_animation_finished"]
-[connection signal="body_entered" from="Player/Hitbox" to="Player/Hitbox" method="_on_Hitbox_body_entered"]
+[connection signal="frame_changed" from="Player/AnimatedSprite" to="Player" method="_on_AnimatedSprite_frame_changed"]

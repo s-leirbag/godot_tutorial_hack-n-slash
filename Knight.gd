@@ -38,3 +38,6 @@ func _on_AnimatedSprite_animation_finished():
 		state = "chase"
 		$AnimatedSprite.play("walk")
 		$AnimatedSprite.offset.x = -4 * dir
+		
+func take_hit(damage, knockback):
+	queue_free()
