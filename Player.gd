@@ -1,19 +1,19 @@
 extends KinematicBody2D
 
 const UP = Vector2(0, -1)
-const GRAVITY = 20
+#const GRAVITY = 20
 const ACCEL = 50
 const MAX_SPEED = 200
 const ROLL_SPEED = 275
-const JUMP_HEIGHT = -300
+#const JUMP_HEIGHT = -300
 
 var motion = Vector2()
 var state = "move"
 var dir = 1
-var has_jump = true
+#var has_jump = true
 
 func _physics_process(delta):
-	motion.y += GRAVITY
+#	motion.y += GRAVITY
 	var friction = true
 	
 	match state:
@@ -29,13 +29,13 @@ func _physics_process(delta):
 				$AnimatedSprite.play("roll")
 				$AnimatedSprite.offset.x = -7 * dir
 				friction = false
-			elif Input.is_action_just_pressed("w"):
-				if is_on_floor():
-					motion.y = JUMP_HEIGHT
-					has_jump = true
-				elif has_jump:
-					motion.y = JUMP_HEIGHT
-					has_jump = false
+#			elif Input.is_action_just_pressed("w"):
+#				if is_on_floor():
+#					motion.y = JUMP_HEIGHT
+#					has_jump = true
+#				elif has_jump:
+#					motion.y = JUMP_HEIGHT
+#					has_jump = false
 			elif Input.is_action_pressed("d"):
 				motion.x = min(motion.x + ACCEL, MAX_SPEED)
 				dir = 1
@@ -67,10 +67,12 @@ func _physics_process(delta):
 				$AnimatedSprite.offset.x = 19 * dir
 
 	if friction == true:
-		if is_on_floor():
-			motion.x = lerp(motion.x, 0, 0.2)
-		else:
-			motion.x = lerp(motion.x, 0, 0.05)
+		motion.x = lerp(motion.x, 0, 0.2)
+#		for jumps
+#		if is_on_floor():
+#			motion.x = lerp(motion.x, 0, 0.2)
+#		else:
+#			motion.x = lerp(motion.x, 0, 0.05)
 		
 	motion = move_and_slide(motion, UP)
 
