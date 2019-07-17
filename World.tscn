@@ -32,13 +32,13 @@
 [ext_resource path="res://assets/sprites/Skeleton/idle/skeleton_idle_1.png" type="Texture" id=30]
 [ext_resource path="res://assets/sprites/Skeleton/idle/skeleton_idle_2.png" type="Texture" id=31]
 [ext_resource path="res://assets/sprites/Skeleton/idle/skeleton_idle_3.png" type="Texture" id=32]
-[ext_resource path="res://assets/sprites/Skeleton/run/skeleton_run_1.png" type="Texture" id=33]
-[ext_resource path="res://assets/sprites/Skeleton/run/skeleton_run_2.png" type="Texture" id=34]
-[ext_resource path="res://assets/sprites/Skeleton/run/skeleton_run_3.png" type="Texture" id=35]
-[ext_resource path="res://assets/sprites/Skeleton/run/skeleton_run_4.png" type="Texture" id=36]
-[ext_resource path="res://assets/sprites/Skeleton/run/skeleton_run_5.png" type="Texture" id=37]
-[ext_resource path="res://assets/sprites/Skeleton/run/skeleton_run_6.png" type="Texture" id=38]
-[ext_resource path="res://assets/sprites/Skeleton/skeleton_hitstun.png" type="Texture" id=39]
+[ext_resource path="res://assets/sprites/Skeleton/skeleton_hitstun.png" type="Texture" id=33]
+[ext_resource path="res://assets/sprites/Skeleton/run/skeleton_run_1.png" type="Texture" id=34]
+[ext_resource path="res://assets/sprites/Skeleton/run/skeleton_run_2.png" type="Texture" id=35]
+[ext_resource path="res://assets/sprites/Skeleton/run/skeleton_run_3.png" type="Texture" id=36]
+[ext_resource path="res://assets/sprites/Skeleton/run/skeleton_run_4.png" type="Texture" id=37]
+[ext_resource path="res://assets/sprites/Skeleton/run/skeleton_run_5.png" type="Texture" id=38]
+[ext_resource path="res://assets/sprites/Skeleton/run/skeleton_run_6.png" type="Texture" id=39]
 [ext_resource path="res://assets/sprites/Skeleton/roll/skeleton_roll_1.png" type="Texture" id=40]
 [ext_resource path="res://assets/sprites/Skeleton/roll/skeleton_roll_2.png" type="Texture" id=41]
 [ext_resource path="res://assets/sprites/Skeleton/roll/skeleton_roll_3.png" type="Texture" id=42]
@@ -106,20 +106,20 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ) ],
-"loop": true,
-"name": "run",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 39 ) ],
+"frames": [ ExtResource( 33 ) ],
 "loop": false,
 "name": "hitstun",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ) ],
+"loop": true,
+"name": "run",
+"speed": 10.0
+}, {
 "frames": [ ExtResource( 40 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 45 ), ExtResource( 46 ) ],
 "loop": true,
 "name": "roll",
-"speed": 12.0
+"speed": 13.0
 }, {
 "frames": [ ExtResource( 47 ), ExtResource( 48 ), ExtResource( 49 ), ExtResource( 50 ), ExtResource( 51 ) ],
 "loop": false,

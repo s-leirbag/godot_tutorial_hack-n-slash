@@ -15,20 +15,21 @@ func _ready():
 func _physics_process(delta):
 	motion.x = 0
 	
-	if state == "chase":
-#		execute only if player exists
-		if get_parent().has_node("Player"):
-			dir = (get_parent().get_node("Player").position.x - position.x) / abs(get_parent().get_node("Player").position.x - position.x)
-			$AnimatedSprite.flip_h = false if dir > 0 else true
-			
-			var distance_to_player = position.distance_to(get_parent().get_node("Player").position)
-			if distance_to_player <= ATTACK_RANGE:
-				state = "attack"
-				$AnimatedSprite.play("attack")
-				$AnimatedSprite.offset.x = 16 * dir
-			else:
-				motion.x = WALK_SPEED if $AnimatedSprite.flip_h == false else -WALK_SPEED
-				$AnimatedSprite.offset.x = -4 * dir
+	match state:
+		"chase":
+#			execute only if player exists
+			if get_parent().has_node("Player"):
+				dir = (get_parent().get_node("Player").position.x - position.x) / abs(get_parent().get_node("Player").position.x - position.x)
+				$AnimatedSprite.flip_h = false if dir > 0 else true
+				
+				var distance_to_player = position.distance_to(get_parent().get_node("Player").position)
+				if distance_to_player <= ATTACK_RANGE:
+					state = "attack"
+					$AnimatedSprite.play("attack")
+					$AnimatedSprite.offset.x = 16 * dir
+				else:
+					motion.x = WALK_SPEED if $AnimatedSprite.flip_h == false else -WALK_SPEED
+					$AnimatedSprite.offset.x = -4 * dir
 
 	motion = move_and_slide(motion, UP)
 
