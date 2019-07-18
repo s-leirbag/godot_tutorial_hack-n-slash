@@ -7,14 +7,14 @@ export(int) var knockback = 4
 func _ready():
 	set_physics_process(false)
 
-func setup(param_owner_path, param_x, param_y, param_width, param_height, param_damage, param_knockback):
-	owner_path = param_owner_path
-	damage = param_damage
-	knockback = param_knockback
+func setup(param_x, param_y, param_width, param_height, param_owner_path, param_damage, param_knockback):
 	position.x = param_x
 	position.y = param_y
 	$CollisionShape2D.shape.extents.x = param_width
 	$CollisionShape2D.shape.extents.y = param_height
+	owner_path = param_owner_path
+	damage = param_damage
+	knockback = param_knockback
 
 func _physics_process(delta):
 	var overlapping_bodies = get_overlapping_bodies()

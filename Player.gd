@@ -1,11 +1,16 @@
 extends KinematicBody2D
 
+# Movement
 const UP = Vector2(0, -1)
 #const GRAVITY = 20
 const ACCEL = 50
 const MAX_SPEED = 200
 const ROLL_SPEED = 275
 #const JUMP_HEIGHT = -300
+
+# Weapon
+const WEAPON_DAMAGE = 1
+const WEAPON_KNOCKBACK = 1
 
 var motion = Vector2()
 var state = "move"
@@ -28,7 +33,7 @@ func _process(delta):
 				state = "attack1"
 				$AnimatedSprite.play("attack1")
 				$AnimatedSprite.offset.x = 5 * dir
-				$Hitbox.setup(get_path(), dir * 10, 0, 20, 10, 1, 1)
+				$Hitbox.setup(dir * 10.5, 4.5, 26.5, 12.5, get_path(), WEAPON_DAMAGE, WEAPON_KNOCKBACK)
 			elif Input.is_action_just_pressed("shift"):
 				motion.x = ROLL_SPEED * dir
 				state = "roll"
@@ -70,6 +75,7 @@ func _process(delta):
 					state = "attack2"
 					$AnimatedSprite.play("attack2")
 					$AnimatedSprite.offset.x = 19 * dir
+					$Hitbox.setup(dir * 16.5, 3.5, 29.5, 14.5, get_path(), WEAPON_DAMAGE, WEAPON_KNOCKBACK)
 		"attack2":
 			if frame_in_range(1, 2):
 				$Hitbox.set_physics_process(true)
@@ -79,8 +85,9 @@ func _process(delta):
 					state = "attack3"
 					$AnimatedSprite.play("attack3")
 					$AnimatedSprite.offset.x = 19 * dir
+					$Hitbox.setup(dir * 34.5, 10, 27.5, 2, get_path(), WEAPON_DAMAGE, WEAPON_KNOCKBACK)
 		"attack3":
-			if frame_in_range(2, 2):
+			if frame_in_range(2, 3):
 				$Hitbox.set_physics_process(true)
 			else:
 				$Hitbox.set_physics_process(false)

@@ -142,6 +142,7 @@ radius = 4.0
 height = 22.0
 
 [sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 27.5, 2 )
 
 [node name="World" type="Node"]
 
@@ -183,16 +184,15 @@ shape = SubResource( 3 )
 position = Vector2( 320, 208 )
 collision_mask = 0
 script = ExtResource( 29 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Player"]
 frames = SubResource( 4 )
-animation = "idle"
-offset = Vector2( -7, 0 )
+animation = "attack3"
+frame = 2
+offset = Vector2( 19, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+visible = false
 position = Vector2( 0, 9 )
 shape = SubResource( 5 )
 
@@ -203,6 +203,7 @@ drag_margin_h_enabled = false
 drag_margin_v_enabled = false
 
 [node name="Hitbox" type="Area2D" parent="Player"]
+position = Vector2( 34.5, 10 )
 script = ExtResource( 63 )
 __meta__ = {
 "_edit_group_": true
