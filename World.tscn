@@ -161,9 +161,7 @@ texture = ExtResource( 1 )
 visible = false
 shape = SubResource( 1 )
 
-[node name="Knight" type="KinematicBody2D" parent="." groups=[
-"characters",
-]]
+[node name="Knight" type="KinematicBody2D" parent="."]
 editor/display_folded = true
 position = Vector2( 380, 208 )
 collision_mask = 0
@@ -181,9 +179,7 @@ offset = Vector2( -4, 0 )
 position = Vector2( 0, 4.5 )
 shape = SubResource( 3 )
 
-[node name="Player" type="KinematicBody2D" parent="." groups=[
-"characters",
-]]
+[node name="Player" type="KinematicBody2D" parent="."]
 position = Vector2( 320, 208 )
 collision_mask = 0
 script = ExtResource( 29 )

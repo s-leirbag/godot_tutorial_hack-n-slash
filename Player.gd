@@ -28,6 +28,7 @@ func _process(delta):
 				state = "attack1"
 				$AnimatedSprite.play("attack1")
 				$AnimatedSprite.offset.x = 5 * dir
+				$Hitbox.setup(get_path(), dir * 10, 0, 20, 10, 1, 1)
 			elif Input.is_action_just_pressed("shift"):
 				motion.x = ROLL_SPEED * dir
 				state = "roll"
