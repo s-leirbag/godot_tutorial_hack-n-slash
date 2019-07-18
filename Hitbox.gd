@@ -1,17 +1,17 @@
 extends Area2D
 
-export(NodePath) var owner_path
+var owner_path
 export(int) var damage = 1
 export(int) var knockback = 4
 
 func _ready():
 	set_physics_process(false)
 
-func setup(param_x, param_y, param_width, param_height, param_owner_path, param_damage, param_knockback):
-	position.x = param_x
-	position.y = param_y
-	$CollisionShape2D.shape.extents.x = param_width
-	$CollisionShape2D.shape.extents.y = param_height
+func setup(info, dir, param_owner_path, param_damage, param_knockback):
+	position.x = info.X * dir
+	position.y = info.Y
+	$CollisionShape2D.shape.extents.x = info.WIDTH
+	$CollisionShape2D.shape.extents.y = info.HEIGHT
 	owner_path = param_owner_path
 	damage = param_damage
 	knockback = param_knockback

@@ -30,6 +30,8 @@ func _physics_process(delta):
 				else:
 					motion.x = WALK_SPEED if $AnimatedSprite.flip_h == false else -WALK_SPEED
 					$AnimatedSprite.offset.x = -4 * dir
+#		"attack":
+#
 
 	motion = move_and_slide(motion, UP)
 
