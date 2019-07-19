@@ -8,10 +8,10 @@ var knockback = 4
 func _ready():
 	set_physics_process(false)
 
-func setup(info, dir, param_owner_path, param_damage, param_knockback):
+func setup(info, dir, param_owner_path):
 	owner_path = param_owner_path
-	damage = param_damage
-	knockback = param_knockback
+	damage = info.DAMAGE
+	knockback = info.KNOCKBACK
 	
 #	get rid of old collision shape
 	if get_child(0):

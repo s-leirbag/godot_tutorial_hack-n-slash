@@ -10,11 +10,9 @@ const ROLL_SPEED = 275
 #const JUMP_HEIGHT = -300
 
 # Weapon constants
-const WEAPON_DAMAGE = 1
-const WEAPON_KNOCKBACK = 1
-const Attack1 = {TYPE = "polygon", POINTS = PoolVector2Array([Vector2(-17, -8), Vector2(21, 1), Vector2(31, 5), Vector2(37, 10), Vector2(37, 15), Vector2(26, 17), Vector2(8, 14), Vector2(-7, 6)])} # X = 10.5, Y = 4.5, WIDTH = 26.5, HEIGHT = 12.5
-const Attack2 = {TYPE = "polygon", POINTS = PoolVector2Array([Vector2(-13, -6), Vector2(-3, -11), Vector2(16, -11), Vector2(35, -3), Vector2(42, 5), Vector2(47, 18), Vector2(27, 18), Vector2(32, 14), Vector2(28, 4), Vector2(19, -3)])} # X = 16.5, Y = 3.5, WIDTH = 29.5, HEIGHT = 14.5
-const Attack3 = {TYPE = "rectangle", X = 34.5, Y = 10, WIDTH = 27.5, HEIGHT = 2}
+const Attack1 = {DAMAGE = 5, KNOCKBACK = 1, TYPE = "polygon", POINTS = PoolVector2Array([Vector2(-17, -8), Vector2(21, 1), Vector2(31, 5), Vector2(37, 10), Vector2(37, 15), Vector2(26, 17), Vector2(8, 14), Vector2(-7, 6)])} # X = 10.5, Y = 4.5, WIDTH = 26.5, HEIGHT = 12.5
+const Attack2 = {DAMAGE = 5, KNOCKBACK = 1, TYPE = "polygon", POINTS = PoolVector2Array([Vector2(-13, -6), Vector2(-3, -11), Vector2(16, -11), Vector2(35, -3), Vector2(42, 5), Vector2(47, 18), Vector2(27, 18), Vector2(32, 14), Vector2(28, 4), Vector2(19, -3)])} # X = 16.5, Y = 3.5, WIDTH = 29.5, HEIGHT = 14.5
+const Attack3 = {DAMAGE = 8, KNOCKBACK = 1, TYPE = "rectangle", X = 34.5, Y = 10, WIDTH = 27.5, HEIGHT = 2}
 
 var motion = Vector2()
 var state = "move"
@@ -37,7 +35,7 @@ func _process(delta):
 				state = "attack1"
 				$AnimatedSprite.play("attack1")
 				$AnimatedSprite.offset.x = 5 * dir
-				$Hitbox.setup(Attack1, dir, get_path(), WEAPON_DAMAGE, WEAPON_KNOCKBACK)
+				$Hitbox.setup(Attack1, dir, get_path())
 			elif Input.is_action_just_pressed("shift"):
 				motion.x = ROLL_SPEED * dir
 				state = "roll"
@@ -79,7 +77,7 @@ func _process(delta):
 					state = "attack2"
 					$AnimatedSprite.play("attack2")
 					$AnimatedSprite.offset.x = 19 * dir
-					$Hitbox.setup(Attack2, dir, get_path(), WEAPON_DAMAGE, WEAPON_KNOCKBACK)
+					$Hitbox.setup(Attack2, dir, get_path())
 		"attack2":
 			if frame_in_range(1, 2):
 				$Hitbox.set_physics_process(true)
@@ -89,7 +87,7 @@ func _process(delta):
 					state = "attack3"
 					$AnimatedSprite.play("attack3")
 					$AnimatedSprite.offset.x = 19 * dir
-					$Hitbox.setup(Attack3, dir, get_path(), WEAPON_DAMAGE, WEAPON_KNOCKBACK)
+					$Hitbox.setup(Attack3, dir, get_path())
 		"attack3":
 			if frame_in_range(2, 3):
 				$Hitbox.set_physics_process(true)
