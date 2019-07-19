@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=2]
+[gd_scene load_steps=72 format=2]
 
 [ext_resource path="res://assets/sprites/Environment/s_wall.png" type="Texture" id=1]
 [ext_resource path="res://Knight.gd" type="Script" id=2]
@@ -62,7 +62,10 @@
 [ext_resource path="res://assets/sprites/Skeleton/attack2/skeleton_attack2_3.png" type="Texture" id=60]
 [ext_resource path="res://assets/sprites/Skeleton/attack2/skeleton_attack2_4.png" type="Texture" id=61]
 [ext_resource path="res://assets/sprites/Skeleton/attack2/skeleton_attack2_5.png" type="Texture" id=62]
-[ext_resource path="res://Hitbox.gd" type="Script" id=63]
+[ext_resource path="res://assets/sprites/Skeleton/attack1/skeleton_attack1_damage.png" type="Texture" id=63]
+[ext_resource path="res://assets/sprites/Skeleton/attack2/skeleton_attack2_damage.png" type="Texture" id=64]
+[ext_resource path="res://assets/sprites/Skeleton/attack3/skeleton_attack3_damage.png" type="Texture" id=65]
+[ext_resource path="res://Hitbox.gd" type="Script" id=66]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
@@ -135,13 +138,16 @@ animations = [ {
 "loop": false,
 "name": "attack2",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 63 ), ExtResource( 64 ), ExtResource( 65 ) ],
+"loop": true,
+"name": "New Anim",
+"speed": 5.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=5]
 radius = 4.0
 height = 22.0
-
-[sub_resource type="RectangleShape2D" id=6]
 
 [node name="World" type="Node"]
 
@@ -161,7 +167,9 @@ texture = ExtResource( 1 )
 visible = false
 shape = SubResource( 1 )
 
-[node name="Knight" type="KinematicBody2D" parent="."]
+[node name="Knight" type="KinematicBody2D" parent="." groups=[
+"characters",
+]]
 position = Vector2( 380, 208 )
 collision_mask = 0
 script = ExtResource( 2 )
@@ -175,19 +183,21 @@ animation = "idle"
 offset = Vector2( -4, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Knight"]
-visible = false
 position = Vector2( 0, 4.5 )
 shape = SubResource( 3 )
 
-[node name="Player" type="KinematicBody2D" parent="."]
+[node name="Player" type="KinematicBody2D" parent="." groups=[
+"characters",
+]]
 position = Vector2( 320, 208 )
 collision_mask = 0
 script = ExtResource( 29 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Player"]
+position = Vector2( 0, 0.0539703 )
 frames = SubResource( 4 )
-animation = "attack3"
-frame = 5
+animation = "New Anim"
+frame = 1
 offset = Vector2( 19, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -202,14 +212,10 @@ drag_margin_h_enabled = false
 drag_margin_v_enabled = false
 
 [node name="Hitbox" type="Area2D" parent="Player"]
-position = Vector2( 34.5, 10 )
-script = ExtResource( 63 )
+script = ExtResource( 66 )
 __meta__ = {
 "_edit_group_": true
 }
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Hitbox"]
-shape = SubResource( 6 )
 [connection signal="animation_finished" from="Knight/AnimatedSprite" to="Knight" method="_on_AnimatedSprite_animation_finished"]
 [connection signal="animation_finished" from="Player/AnimatedSprite" to="Player" method="_on_AnimatedSprite_animation_finished"]
 [connection signal="frame_changed" from="Player/AnimatedSprite" to="Player" method="_on_AnimatedSprite_frame_changed"]

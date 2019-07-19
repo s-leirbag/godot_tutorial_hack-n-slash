@@ -1,5 +1,7 @@
+# Knight.gd
 extends KinematicBody2D
 
+# Movement constants
 const UP = Vector2(0, -1)
 const WALK_SPEED = 20
 const ATTACK_RANGE = 42

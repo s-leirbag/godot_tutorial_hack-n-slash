@@ -1,30 +1,63 @@
+# Hitbox.gd
 extends Area2D
 
 var owner_path
-export(int) var damage = 1
-export(int) var knockback = 4
+var damage = 1
+var knockback = 4
 
 func _ready():
 	set_physics_process(false)
 
 func setup(info, dir, param_owner_path, param_damage, param_knockback):
-	position.x = info.X * dir
-	position.y = info.Y
-	$CollisionShape2D.shape.extents.x = info.WIDTH
-	$CollisionShape2D.shape.extents.y = info.HEIGHT
 	owner_path = param_owner_path
 	damage = param_damage
 	knockback = param_knockback
+	
+#	get rid of old collision shape
+	if get_child(0):
+		get_child(0).free()
+	
+#	make new collision shape
+#	polygon or rectangle
+	if info.TYPE == "polygon":
+#		reset position if needed
+		if get_position() != Vector2(0, 0):
+			set_position(Vector2(0, 0))
+		
+#		make new CollisionPolygon2D
+		var hitbox = CollisionPolygon2D.new()
+		hitbox.set_name("CollisionPolygon2D")
+		add_child(hitbox)
+		
+#		flip if needed
+#		set polygon
+		if dir == -1:
+			var new_points = PoolVector2Array()
+			for vect in info.POINTS:
+				new_points.push_back(Vector2(-vect.x, vect.y))
+			$CollisionPolygon2D.set_polygon(new_points)
+		else:
+			$CollisionPolygon2D.set_polygon(info.POINTS)
+	elif info.TYPE == "rectangle":
+		set_position(Vector2(info.X * dir, info.Y))
+		
+#		make new CollisionShape2D
+		var hitbox = CollisionShape2D.new()
+		hitbox.set_name("CollisionShape2D")
+		add_child(hitbox)
+		
+#		set rectangle
+		var shape = RectangleShape2D.new()
+		$CollisionShape2D.set_shape(shape)
+		$CollisionShape2D.shape.set_extents(Vector2(info.WIDTH, info.HEIGHT))
 
 func _physics_process(delta):
-	var overlapping_bodies = get_overlapping_bodies()
-	if overlapping_bodies:
-		for body in overlapping_bodies:
-			if not is_owner(body):
-				body.take_hit(damage, knockback)
+#	loop through overlapping bodies
+	for body in get_overlapping_bodies():
+#		if body is a character
+#		and body is not this hitbox's owner
+		if body.is_in_group("characters") and not is_owner(body):
+			body.take_hit(damage, knockback)
 
-#			if body.is_in_group("characters") and not is_owner(body):
-#				body.take_hit(damage, knockback)
-				
 func is_owner(node):
 	return node.get_path() == owner_path
