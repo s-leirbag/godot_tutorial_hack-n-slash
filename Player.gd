@@ -8,9 +8,9 @@ const ROLL_SPEED = 275
 #const JUMP_HEIGHT = -300
 
 # Weapon constants
-const Attack1 = {DAMAGE = 5, KNOCKBACK = 1, TYPE = "polygon", X = 0, Y = 0, POINTS = PoolVector2Array([Vector2(-17, -8), Vector2(21, 1), Vector2(31, 5), Vector2(37, 10), Vector2(37, 15), Vector2(26, 17), Vector2(8, 14), Vector2(-7, 6)])}
-const Attack2 = {DAMAGE = 5, KNOCKBACK = 1, TYPE = "polygon", X = 0, Y = 0, POINTS = PoolVector2Array([Vector2(-13, -6), Vector2(-3, -11), Vector2(16, -11), Vector2(35, -3), Vector2(42, 5), Vector2(47, 18), Vector2(27, 18), Vector2(32, 14), Vector2(28, 4), Vector2(19, -3)])}
-const Attack3 = {DAMAGE = 8, KNOCKBACK = 1, TYPE = "rectangle", X = 34.5, Y = 10, WIDTH = 27.5, HEIGHT = 2}
+const Attack1 = {DAMAGE = 5, KNOCKBACK = Vector2(150, 0), TYPE = "polygon", X = 0, Y = 0, POINTS = PoolVector2Array([Vector2(-17, -8), Vector2(21, 1), Vector2(31, 5), Vector2(37, 10), Vector2(37, 15), Vector2(26, 17), Vector2(8, 14), Vector2(-7, 6)])}
+const Attack2 = {DAMAGE = 5, KNOCKBACK = Vector2(150, 0), TYPE = "polygon", X = 0, Y = 0, POINTS = PoolVector2Array([Vector2(-13, -6), Vector2(-3, -11), Vector2(16, -11), Vector2(35, -3), Vector2(42, 5), Vector2(47, 18), Vector2(27, 18), Vector2(32, 14), Vector2(28, 4), Vector2(19, -3)])}
+const Attack3 = {DAMAGE = 8, KNOCKBACK = Vector2(400, 0), TYPE = "rectangle", X = 34.5, Y = 10, WIDTH = 27.5, HEIGHT = 2}
 
 #var has_jump = true
 
@@ -20,8 +20,8 @@ func _ready():
 	state = "move"
 
 func _process(delta):
-#	motion.y += GRAVITY
 	var friction = true
+#	motion.y += GRAVITY
 	
 	match state:
 		"move":
@@ -88,6 +88,9 @@ func _process(delta):
 				$Hitbox.set_physics_process(true)
 			else:
 				$Hitbox.set_physics_process(false)
+		"knockback":
+			if motion.x < 1:
+				state = "move"
 
 	if friction == true:
 		motion.x = lerp(motion.x, 0, 0.2)
@@ -96,7 +99,7 @@ func _process(delta):
 #			motion.x = lerp(motion.x, 0, 0.2)
 #		else:
 #			motion.x = lerp(motion.x, 0, 0.05)
-		
+	
 	motion = move_and_slide(motion, UP)
 
 func _on_AnimatedSprite_animation_finished():

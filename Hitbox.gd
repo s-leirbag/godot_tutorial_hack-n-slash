@@ -61,7 +61,7 @@ func _physics_process(delta):
 #		and body is not in an invulnerable state
 #		and body isn't already hit
 		if body.is_in_group("characters") and not is_owner(body) and not body.invulnerable and hit.find(body) == -1:
-			body.take_hit(damage, knockback)
+			body.take_hit(damage, knockback, -1 if get_parent().position.x < body.position.x else 1) # new_dir can also be -get_parent().dir, but this may be better
 #			add body to list of hit bodies
 			hit.push_back(body)
 
