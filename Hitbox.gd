@@ -58,8 +58,9 @@ func _physics_process(delta):
 	for body in get_overlapping_bodies():
 #		if body is a character
 #		and body is not this hitbox's owner
+#		and body is not in an invulnerable state
 #		and body isn't already hit
-		if body.is_in_group("characters") and not is_owner(body) and hit.find(body) == -1:
+		if body.is_in_group("characters") and not is_owner(body) and not body.invulnerable and hit.find(body) == -1:
 			body.take_hit(damage, knockback)
 #			add body to list of hit bodies
 			hit.push_back(body)

@@ -2,22 +2,19 @@
 extends "res://Character.gd"
 
 # Movement constants
-const UP = Vector2(0, -1)
 const WALK_SPEED = 20
 const ATTACK_RANGE = 37
 
 # Weapon constants
 const Attack = {DAMAGE = 10, KNOCKBACK = 1, TYPE = "polygon", X = -3, Y = -4, POINTS = PoolVector2Array([Vector2(-17, -8), Vector2(21, 1), Vector2(31, 5), Vector2(37, 10), Vector2(37, 15), Vector2(26, 17), Vector2(8, 14), Vector2(-7, 6)])}
 
-var motion = Vector2()
-var state
-var dir = 1
-
 func _ready():
+	max_hp = 25
+	hp = 25
 	state = "chase"
 	$AnimatedSprite.play("walk")
 
-func _physics_process(delta):
+func _process(delta):
 	motion.x = 0
 	
 	match state:

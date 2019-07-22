@@ -2,8 +2,6 @@
 extends "res://Character.gd"
 
 # Movement constants
-const UP = Vector2(0, -1)
-#const GRAVITY = 20
 const ACCEL = 50
 const MAX_SPEED = 200
 const ROLL_SPEED = 275
@@ -14,16 +12,12 @@ const Attack1 = {DAMAGE = 5, KNOCKBACK = 1, TYPE = "polygon", X = 0, Y = 0, POIN
 const Attack2 = {DAMAGE = 5, KNOCKBACK = 1, TYPE = "polygon", X = 0, Y = 0, POINTS = PoolVector2Array([Vector2(-13, -6), Vector2(-3, -11), Vector2(16, -11), Vector2(35, -3), Vector2(42, 5), Vector2(47, 18), Vector2(27, 18), Vector2(32, 14), Vector2(28, 4), Vector2(19, -3)])}
 const Attack3 = {DAMAGE = 8, KNOCKBACK = 1, TYPE = "rectangle", X = 34.5, Y = 10, WIDTH = 27.5, HEIGHT = 2}
 
-var motion = Vector2()
-var state = "move"
-var dir = 1
 #var has_jump = true
 
 func _ready():
-	#Hitbox setup
-	#instace hitbox (to-do)
-	
-	$Hitbox.set_physics_process(false)
+	max_hp = 25
+	hp = 25
+	state = "move"
 
 func _process(delta):
 #	motion.y += GRAVITY
@@ -42,6 +36,7 @@ func _process(delta):
 				$AnimatedSprite.play("roll")
 				$AnimatedSprite.offset.x = -7 * dir
 				friction = false
+				invulnerable = true
 #			elif Input.is_action_just_pressed("w"):
 #				if is_on_floor():
 #					motion.y = JUMP_HEIGHT
@@ -107,3 +102,5 @@ func _process(delta):
 func _on_AnimatedSprite_animation_finished():
 	if state == "roll" or state == "attack1" or state == "attack2" or state == "attack3":
 		state = "move"
+		if invulnerable:
+			invulnerable = false

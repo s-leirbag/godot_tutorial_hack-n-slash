@@ -1,15 +1,16 @@
+# Character.gd
 extends KinematicBody2D
 
-var hp = 25
+# Movement constants
+const UP = Vector2(0, -1)
+#const GRAVITY = 20
+
+var hp
 var max_hp
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+var state
+var dir = 1
+var motion = Vector2()
+var invulnerable = false
 
 func take_hit(damage, knockback):
 	hp -= damage
