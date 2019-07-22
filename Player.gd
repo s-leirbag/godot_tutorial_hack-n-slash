@@ -1,5 +1,5 @@
 # Player.gd
-extends KinematicBody2D
+extends "res://Character.gd"
 
 # Movement constants
 const UP = Vector2(0, -1)
@@ -10,8 +10,8 @@ const ROLL_SPEED = 275
 #const JUMP_HEIGHT = -300
 
 # Weapon constants
-const Attack1 = {DAMAGE = 5, KNOCKBACK = 1, TYPE = "polygon", POINTS = PoolVector2Array([Vector2(-17, -8), Vector2(21, 1), Vector2(31, 5), Vector2(37, 10), Vector2(37, 15), Vector2(26, 17), Vector2(8, 14), Vector2(-7, 6)])} # X = 10.5, Y = 4.5, WIDTH = 26.5, HEIGHT = 12.5
-const Attack2 = {DAMAGE = 5, KNOCKBACK = 1, TYPE = "polygon", POINTS = PoolVector2Array([Vector2(-13, -6), Vector2(-3, -11), Vector2(16, -11), Vector2(35, -3), Vector2(42, 5), Vector2(47, 18), Vector2(27, 18), Vector2(32, 14), Vector2(28, 4), Vector2(19, -3)])} # X = 16.5, Y = 3.5, WIDTH = 29.5, HEIGHT = 14.5
+const Attack1 = {DAMAGE = 5, KNOCKBACK = 1, TYPE = "polygon", X = 0, Y = 0, POINTS = PoolVector2Array([Vector2(-17, -8), Vector2(21, 1), Vector2(31, 5), Vector2(37, 10), Vector2(37, 15), Vector2(26, 17), Vector2(8, 14), Vector2(-7, 6)])}
+const Attack2 = {DAMAGE = 5, KNOCKBACK = 1, TYPE = "polygon", X = 0, Y = 0, POINTS = PoolVector2Array([Vector2(-13, -6), Vector2(-3, -11), Vector2(16, -11), Vector2(35, -3), Vector2(42, 5), Vector2(47, 18), Vector2(27, 18), Vector2(32, 14), Vector2(28, 4), Vector2(19, -3)])}
 const Attack3 = {DAMAGE = 8, KNOCKBACK = 1, TYPE = "rectangle", X = 34.5, Y = 10, WIDTH = 27.5, HEIGHT = 2}
 
 var motion = Vector2()
@@ -107,6 +107,3 @@ func _process(delta):
 func _on_AnimatedSprite_animation_finished():
 	if state == "roll" or state == "attack1" or state == "attack2" or state == "attack3":
 		state = "move"
-		
-func frame_in_range(low, high):
-	return $AnimatedSprite.frame >= low and $AnimatedSprite.frame <= high

@@ -4,6 +4,7 @@ extends Area2D
 var owner_path
 var damage = 1
 var knockback = 4
+var hit
 
 func _ready():
 	set_physics_process(false)
@@ -13,6 +14,9 @@ func setup(info, dir, param_owner_path):
 	damage = info.DAMAGE
 	knockback = info.KNOCKBACK
 	
+#	stores bodies already hit
+	hit = []
+	
 #	get rid of old collision shape
 	if get_child(0):
 		get_child(0).free()
@@ -20,9 +24,7 @@ func setup(info, dir, param_owner_path):
 #	make new collision shape
 #	polygon or rectangle
 	if info.TYPE == "polygon":
-#		reset position if needed
-		if get_position() != Vector2(0, 0):
-			set_position(Vector2(0, 0))
+		set_position(Vector2(info.X * dir, info.Y))
 		
 #		make new CollisionPolygon2D
 		var hitbox = CollisionPolygon2D.new()
@@ -56,8 +58,11 @@ func _physics_process(delta):
 	for body in get_overlapping_bodies():
 #		if body is a character
 #		and body is not this hitbox's owner
-		if body.is_in_group("characters") and not is_owner(body):
+#		and body isn't already hit
+		if body.is_in_group("characters") and not is_owner(body) and hit.find(body) == -1:
 			body.take_hit(damage, knockback)
+#			add body to list of hit bodies
+			hit.push_back(body)
 
 func is_owner(node):
 	return node.get_path() == owner_path
