@@ -74,7 +74,7 @@ animations = [ {
 "speed": 10.0
 } ]
 
-[node name="Player" index="0" groups=[
+[node name="Player" groups=[
 "player",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -88,7 +88,7 @@ visible = false
 position = Vector2( 0, 9 )
 
 [node name="Camera2D" type="Camera2D" parent="." index="2"]
-visible = false
+position = Vector2( 0, -92 )
 current = true
 drag_margin_h_enabled = false
 drag_margin_v_enabled = false
