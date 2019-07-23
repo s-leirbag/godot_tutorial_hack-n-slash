@@ -14,7 +14,6 @@ editor/display_folded = true
 position = Vector2( 320, 296 )
 scale = Vector2( 20, 4 )
 __meta__ = {
-"_edit_group_": true,
 "_edit_lock_": true
 }
 
@@ -25,14 +24,22 @@ texture = ExtResource( 1 )
 visible = false
 shape = SubResource( 1 )
 
-[node name="Knight" parent="." instance=ExtResource( 2 )]
+[node name="Knight" parent="." groups=[
+"characters",
+] instance=ExtResource( 2 )]
 position = Vector2( 380, 208 )
 
-[node name="Knight2" parent="." instance=ExtResource( 2 )]
+[node name="Knight2" parent="." groups=[
+"characters",
+] instance=ExtResource( 2 )]
 position = Vector2( 440, 208 )
 
-[node name="Knight3" parent="." instance=ExtResource( 2 )]
+[node name="Knight3" parent="." groups=[
+"characters",
+] instance=ExtResource( 2 )]
 position = Vector2( 500, 208 )
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
+[node name="Player" parent="." groups=[
+"characters",
+] instance=ExtResource( 3 )]
 position = Vector2( 320, 208 )

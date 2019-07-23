@@ -34,7 +34,7 @@ func _process(delta):
 					state = "attack"
 					$AnimatedSprite.play("attack")
 					$AnimatedSprite.offset.x = 16 * dir
-					$Hitbox.setup(Attack, dir, get_path())
+					$Hitbox.setup(Attack, dir)
 				else:
 					motion.x = WALK_SPEED if $AnimatedSprite.flip_h == false else -WALK_SPEED
 					$AnimatedSprite.offset.x = -4 * dir

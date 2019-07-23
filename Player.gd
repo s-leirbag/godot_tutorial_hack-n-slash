@@ -29,7 +29,7 @@ func _process(delta):
 				state = "attack1"
 				$AnimatedSprite.play("attack1")
 				$AnimatedSprite.offset.x = 5 * dir
-				$Hitbox.setup(Attack1, dir, get_path())
+				$Hitbox.setup(Attack1, dir)
 			elif Input.is_action_just_pressed("shift"):
 				motion.x = ROLL_SPEED * dir
 				state = "roll"
@@ -72,7 +72,7 @@ func _process(delta):
 					state = "attack2"
 					$AnimatedSprite.play("attack2")
 					$AnimatedSprite.offset.x = 19 * dir
-					$Hitbox.setup(Attack2, dir, get_path())
+					$Hitbox.setup(Attack2, dir)
 		"attack2":
 			if frame_in_range(1, 2):
 				$Hitbox.set_physics_process(true)
@@ -82,7 +82,7 @@ func _process(delta):
 					state = "attack3"
 					$AnimatedSprite.play("attack3")
 					$AnimatedSprite.offset.x = 19 * dir
-					$Hitbox.setup(Attack3, dir, get_path())
+					$Hitbox.setup(Attack3, dir)
 		"attack3":
 			if frame_in_range(2, 3):
 				$Hitbox.set_physics_process(true)

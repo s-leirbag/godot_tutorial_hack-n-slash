@@ -2,15 +2,17 @@
 extends Area2D
 
 var owner_path
+var enemy_group
 var damage = 1
 var knockback = 4
 var hit
 
 func _ready():
 	set_physics_process(false)
+	owner_path = get_parent().get_path()
+	enemy_group = "enemies" if get_parent().is_in_group("player") else "player"
 
-func setup(info, dir, param_owner_path):
-	owner_path = param_owner_path
+func setup(info, dir):
 	damage = info.DAMAGE
 	knockback = info.KNOCKBACK
 	
@@ -60,7 +62,7 @@ func _physics_process(delta):
 #		and body is not this hitbox's owner
 #		and body is not in an invulnerable state
 #		and body isn't already hit
-		if body.is_in_group("characters") and not is_owner(body) and not body.invulnerable and hit.find(body) == -1:
+		if body.is_in_group(enemy_group) and not is_owner(body) and not body.invulnerable and hit.find(body) == -1:
 			body.take_hit(damage, knockback, -1 if get_parent().position.x < body.position.x else 1) # new_dir can also be -get_parent().dir, but this may be better
 #			add body to list of hit bodies
 			hit.push_back(body)
