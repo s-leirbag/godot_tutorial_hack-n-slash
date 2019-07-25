@@ -5,14 +5,15 @@ extends "res://Character.gd"
 const ACCEL = 50
 const MAX_SPEED = 200
 const ROLL_SPEED = 275
-#const JUMP_HEIGHT = -300
+const JUMP_HEIGHT = -300
 
 # Weapon constants
 const Attack1 = {DAMAGE = 5, KNOCKBACK = Vector2(150, 0), TYPE = "polygon", X = 0, Y = 0, POINTS = PoolVector2Array([Vector2(-17, -8), Vector2(21, 1), Vector2(31, 5), Vector2(37, 10), Vector2(37, 15), Vector2(26, 17), Vector2(8, 14), Vector2(-7, 6)])}
 const Attack2 = {DAMAGE = 5, KNOCKBACK = Vector2(150, 0), TYPE = "polygon", X = 0, Y = 0, POINTS = PoolVector2Array([Vector2(-13, -6), Vector2(-3, -11), Vector2(16, -11), Vector2(35, -3), Vector2(42, 5), Vector2(47, 18), Vector2(27, 18), Vector2(32, 14), Vector2(28, 4), Vector2(19, -3)])}
 const Attack3 = {DAMAGE = 8, KNOCKBACK = Vector2(400, 0), TYPE = "rectangle", X = 34.5, Y = 10, WIDTH = 27.5, HEIGHT = 2}
 
-#var has_jump = true
+var has_jump = true
+var has_roll = true
 
 func _ready():
 	max_hp = 25
@@ -21,7 +22,7 @@ func _ready():
 
 func _process(delta):
 	var friction = true
-#	motion.y += GRAVITY
+	motion.y += GRAVITY
 	
 	match state:
 		"move":
@@ -31,19 +32,29 @@ func _process(delta):
 				$AnimatedSprite.offset.x = 5 * dir
 				$Hitbox.setup(Attack1, dir)
 			elif Input.is_action_just_pressed("shift"):
-				motion.x = ROLL_SPEED * dir
-				state = "roll"
-				$AnimatedSprite.play("roll")
-				$AnimatedSprite.offset.x = -7 * dir
-				friction = false
-				invulnerable = true
-#			elif Input.is_action_just_pressed("w"):
-#				if is_on_floor():
-#					motion.y = JUMP_HEIGHT
-#					has_jump = true
-#				elif has_jump:
-#					motion.y = JUMP_HEIGHT
-#					has_jump = false
+				if is_on_floor():
+					motion.x = ROLL_SPEED * dir
+					state = "roll"
+					$AnimatedSprite.play("roll")
+					$AnimatedSprite.offset.x = -7 * dir
+					friction = false
+					invulnerable = true
+					has_roll = true
+				elif has_roll:
+					motion.x = ROLL_SPEED * dir
+					state = "roll"
+					$AnimatedSprite.play("roll")
+					$AnimatedSprite.offset.x = -7 * dir
+					friction = false
+					invulnerable = true
+					has_roll = false
+			elif Input.is_action_just_pressed("w"):
+				if is_on_floor():
+					motion.y = JUMP_HEIGHT
+					has_jump = true
+				elif has_jump:
+					motion.y = JUMP_HEIGHT
+					has_jump = false
 			elif Input.is_action_pressed("d"):
 				motion.x = min(motion.x + ACCEL, MAX_SPEED)
 				dir = 1
@@ -63,6 +74,15 @@ func _process(delta):
 				$AnimatedSprite.offset.x = -7 * dir
 		"roll":
 			friction = false
+			if Input.is_action_just_pressed("w"):
+				if is_on_floor():
+					motion.y = JUMP_HEIGHT
+					has_jump = true
+					state = "move"
+				elif has_jump:
+					motion.y = JUMP_HEIGHT
+					has_jump = false
+					state = "move"
 		"attack1":
 			if frame_in_range(0, 1):
 				$Hitbox.set_physics_process(true)
@@ -93,12 +113,10 @@ func _process(delta):
 				state = "move"
 
 	if friction == true:
-		motion.x = lerp(motion.x, 0, 0.2)
-#		for jumps
-#		if is_on_floor():
-#			motion.x = lerp(motion.x, 0, 0.2)
-#		else:
-#			motion.x = lerp(motion.x, 0, 0.05)
+		if is_on_floor():
+			motion.x = lerp(motion.x, 0, 0.2)
+		else:
+			motion.x = lerp(motion.x, 0, 0.05)
 	
 	motion = move_and_slide(motion, UP)
 
