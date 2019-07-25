@@ -1,47 +1,69 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://FenceTilset.tres" type="TileSet" id=1]
+[ext_resource path="res://assets/sprites/Environment/s_clouds.png" type="Texture" id=1]
 [ext_resource path="res://BaseTileset.tres" type="TileSet" id=2]
-[ext_resource path="res://Knight.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/sprites/Environment/s_clouds.png" type="Texture" id=5]
+[ext_resource path="res://FenceGraveTileset.tres" type="TileSet" id=3]
+[ext_resource path="res://Knight.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=5]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends TileMap
+
+func _ready():
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	
+	for x in range(-20, -11):
+		set_cell(x, 6, rng.randi_range(-1, 2))
+	
+	for x in range(51, 60):
+		set_cell(x, 6, rng.randi_range(-1, 2))"
 
 [node name="World" type="Node"]
 
-[node name="Fence" type="TileMap" parent="."]
-position = Vector2( 0, 8 )
-tile_set = ExtResource( 1 )
-cell_size = Vector2( 16, 32 )
-format = 1
-tile_data = PoolIntArray( 524288, 536870912, 0, 524327, 536870912, 0 )
+[node name="Environment" type="Node" parent="."]
 
-[node name="Base" type="TileMap" parent="."]
+[node name="Clouds1" type="Sprite" parent="Environment"]
+position = Vector2( -320, 128 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Clouds2" type="Sprite" parent="Environment"]
+position = Vector2( 320, 128 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Base" type="TileMap" parent="Environment"]
 position = Vector2( 0, 8 )
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 32, 32 )
 format = 1
-tile_data = PoolIntArray( 524288, 536870912, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 524304, 0, 0, 524305, 0, 0, 524306, 0, 0, 524307, 536870912, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 1, 0, 589828, 1, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 589839, 1, 0, 589840, 1, 0, 589841, 1, 0, 589842, 1, 0, 589843, 1, 0, 655360, 1, 0, 655361, 1, 0, 655362, 1, 0, 655363, 1, 0, 655364, 1, 0, 655365, 1, 0, 655366, 1, 0, 655367, 1, 0, 655368, 1, 0, 655369, 1, 0, 655370, 1, 0, 655371, 1, 0, 655372, 1, 0, 655373, 1, 0, 655374, 1, 0, 655375, 1, 0, 655376, 1, 0, 655377, 1, 0, 655378, 1, 0, 655379, 1, 0 )
+tile_data = PoolIntArray( 589814, 0, 0, 589815, 0, 0, 589816, 0, 0, 589817, 0, 0, 589818, 0, 0, 589819, 0, 0, 589820, 0, 0, 589821, 0, 0, 589822, 0, 0, 589823, 0, 0, 524288, 536870912, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 524304, 0, 0, 524305, 0, 0, 524306, 0, 0, 524307, 536870912, 0, 524308, 0, 0, 524309, 0, 0, 524310, 0, 0, 524311, 0, 0, 524312, 0, 0, 524313, 0, 0, 524314, 0, 0, 524315, 0, 0, 524316, 0, 0, 524317, 0, 0, 655350, 1, 0, 655351, 1, 0, 655352, 1, 0, 655353, 1, 0, 655354, 1, 0, 655355, 1, 0, 655356, 1, 0, 655357, 1, 0, 655358, 1, 0, 655359, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 1, 0, 589828, 1, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 589839, 1, 0, 589840, 1, 0, 589841, 1, 0, 589842, 1, 0, 589843, 1, 0, 589844, 1, 0, 589845, 1, 0, 589846, 1, 0, 589847, 1, 0, 589848, 1, 0, 589849, 1, 0, 589850, 1, 0, 589851, 1, 0, 589852, 1, 0, 589853, 1, 0, 720886, 1, 0, 720887, 1, 0, 720888, 1, 0, 720889, 1, 0, 720890, 1, 0, 720891, 1, 0, 720892, 1, 0, 720893, 1, 0, 720894, 1, 0, 720895, 1, 0, 655360, 1, 0, 655361, 1, 0, 655362, 1, 0, 655363, 1, 0, 655364, 1, 0, 655365, 1, 0, 655366, 1, 0, 655367, 1, 0, 655368, 1, 0, 655369, 1, 0, 655370, 1, 0, 655371, 1, 0, 655372, 1, 0, 655373, 1, 0, 655374, 1, 0, 655375, 1, 0, 655376, 1, 0, 655377, 1, 0, 655378, 1, 0, 655379, 1, 0, 655380, 1, 0, 655381, 1, 0, 655382, 1, 0, 655383, 1, 0, 655384, 1, 0, 655385, 1, 0, 655386, 1, 0, 655387, 1, 0, 655388, 1, 0, 655389, 1, 0 )
+
+[node name="FenceGrave" type="TileMap" parent="Environment"]
+position = Vector2( 0, 16 )
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 16, 40 )
+format = 1
+tile_data = PoolIntArray( 458741, 3, 0, 393266, 3, 0 )
+script = SubResource( 1 )
 
 [node name="Knight" parent="." groups=[
 "characters",
-] instance=ExtResource( 3 )]
+] instance=ExtResource( 4 )]
 position = Vector2( 380, 272 )
 
 [node name="Knight2" parent="." groups=[
 "characters",
-] instance=ExtResource( 3 )]
+] instance=ExtResource( 4 )]
 position = Vector2( 440, 272 )
 
 [node name="Knight3" parent="." groups=[
 "characters",
-] instance=ExtResource( 3 )]
+] instance=ExtResource( 4 )]
 position = Vector2( 500, 272 )
 
 [node name="Player" parent="." groups=[
 "characters",
-] instance=ExtResource( 4 )]
+] instance=ExtResource( 5 )]
 position = Vector2( 320, 272 )
-
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 320, 198 )
-texture = ExtResource( 5 )
