@@ -87,6 +87,7 @@ script = ExtResource( 2 )
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 1 )
 animation = "idle"
+frame = 1
 playing = true
 offset = Vector2( -7, 0 )
 
@@ -110,8 +111,8 @@ visible = false
 
 [node name="Clouds" type="ParallaxBackground" parent="." index="4"]
 editor/display_folded = true
-offset = Vector2( -768, 305 )
-transform = Transform2D( 1, 0, 0, 1, -768, 305 )
+offset = Vector2( -128, 305 )
+transform = Transform2D( 1, 0, 0, 1, -128, 305 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="Clouds" index="0"]
 editor/display_folded = true
@@ -124,8 +125,8 @@ centered = false
 
 [node name="FarGraves" type="ParallaxBackground" parent="." index="5"]
 editor/display_folded = true
-offset = Vector2( -512, 337 )
-transform = Transform2D( 1, 0, 0, 1, -512, 337 )
+offset = Vector2( 128, 337 )
+transform = Transform2D( 1, 0, 0, 1, 128, 337 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="FarGraves" index="0"]
 editor/display_folded = true
@@ -139,8 +140,8 @@ centered = false
 
 [node name="CloseGraves" type="ParallaxBackground" parent="." index="6"]
 editor/display_folded = true
-offset = Vector2( -768, 357 )
-transform = Transform2D( 1, 0, 0, 1, -768, 357 )
+offset = Vector2( -128, 357 )
+transform = Transform2D( 1, 0, 0, 1, -128, 357 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="CloseGraves" index="0"]
 editor/display_folded = true

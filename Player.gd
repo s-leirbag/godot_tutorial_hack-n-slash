@@ -52,6 +52,7 @@ func _process(delta):
 				if is_on_floor():
 					motion.y = JUMP_HEIGHT
 					has_jump = true
+					has_roll = true
 				elif has_jump:
 					motion.y = JUMP_HEIGHT
 					has_jump = false
