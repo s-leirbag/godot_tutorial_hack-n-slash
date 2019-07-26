@@ -63,6 +63,12 @@ func _physics_process(delta):
 #		and body is not in an invulnerable state
 #		and body isn't already hit
 		if body.is_in_group(enemy_group) and not is_owner(body) and not body.invulnerable and hit.find(body) == -1:
+#			increment skeleton's kills by 1
+#			if player exists and parent is player
+#			and body is killed
+			if get_parent().get_parent().has_node("Player") and get_node(owner_path).name == "Player" and body.hp - damage <= 0:
+				get_parent().kills += 1
+			
 			body.take_hit(damage, knockback, -1 if get_parent().position.x < body.position.x else 1) # new_dir can also be -get_parent().dir, but this may be better
 #			add body to list of hit bodies
 			hit.push_back(body)

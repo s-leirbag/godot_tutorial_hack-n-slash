@@ -14,6 +14,8 @@ const Attack3 = {DAMAGE = 8, KNOCKBACK = Vector2(400, 0), TYPE = "rectangle", X 
 
 var has_jump = true
 var has_roll = true
+var kills = 0
+var level = 1
 
 func _ready():
 	max_hp = 25
