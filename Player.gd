@@ -16,13 +16,19 @@ var has_jump = true
 var has_roll = true
 var kills = 0
 var level = 1
+var experience = 0
+var max_experience = 10
+var strength = 25
 
 func _ready():
+	experience_yield = max_experience + experience
 	max_hp = 25
 	hp = 25
 	state = "move"
 
 func _process(delta):
+	experience_yield = max_experience + experience
+	
 	var friction = true
 	motion.y += GRAVITY
 	

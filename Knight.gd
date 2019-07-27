@@ -1,14 +1,13 @@
 # Knight.gd
 extends "res://Character.gd"
 
-# Movement constants
+# Constants
 const WALK_SPEED = 20
 const ATTACK_RANGE = 37
-
-# Weapon constants
 const Attack = {DAMAGE = 10, KNOCKBACK = Vector2(200, 0), TYPE = "polygon", X = -3, Y = -4, POINTS = PoolVector2Array([Vector2(-17, -8), Vector2(21, 1), Vector2(31, 5), Vector2(37, 10), Vector2(37, 15), Vector2(26, 17), Vector2(8, 14), Vector2(-7, 6)])}
 
 func _ready():
+	experience_yield = 50
 	max_hp = 25
 	hp = 25
 	state = "chase"
