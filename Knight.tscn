@@ -61,7 +61,7 @@ animations = [ {
 radius = 9.0
 height = 21.0
 
-[node name="Knight" index="0" groups=[
+[node name="Knight" groups=[
 "enemies",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )

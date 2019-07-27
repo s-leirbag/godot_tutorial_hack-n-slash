@@ -15,8 +15,8 @@ func _process(delta):
 	
 	var move_to_player = true
 	for area in get_overlapping_areas():
-		if area.name == "Experience":
-			motion = 5 * point_direction(area.get_position(), get_position())
+		if area.filename == "res://Experience.tscn":
+			motion = 2 * point_direction(area.get_position(), get_position())
 			if move_to_player:
 				move_to_player = false
 	

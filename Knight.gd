@@ -8,8 +8,8 @@ const Attack = {DAMAGE = 10, KNOCKBACK = Vector2(200, 0), TYPE = "polygon", X = 
 
 func _ready():
 	experience_yield = 50
-	max_hp = 25
 	hp = 25
+	max_hp = hp
 	state = "chase"
 	$AnimatedSprite.play("walk")
 

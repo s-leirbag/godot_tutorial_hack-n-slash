@@ -22,8 +22,8 @@ var strength = 25
 
 func _ready():
 	experience_yield = max_experience + experience
-	max_hp = 25
 	hp = 25
+	max_hp = hp
 	state = "move"
 
 func _process(delta):
