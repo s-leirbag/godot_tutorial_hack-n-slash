@@ -6,9 +6,9 @@ var max_speed = 20
 func _ready():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	var direction = rng.randi_range(1, 360)
+	var direction = deg2rad(rng.randi_range(1, 360))
 	var speed = rng.randi_range(5, max_speed)
-	motion = speed * point_direction(Vector2(0, 0), Vector2(sin(direction), cos(direction)))
+	motion = speed * point_direction(Vector2(0, 0), Vector2(cos(direction), sin(direction)))
 
 func _process(delta):
 	position = position + motion

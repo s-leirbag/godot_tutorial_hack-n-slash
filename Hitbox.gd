@@ -1,11 +1,14 @@
 # Hitbox.gd
 extends Area2D
 
+var SkeletonBones = load("res://SkeletonBones.tscn")
+
 var owner_path
 var enemy_group
 var damage = 1
 var knockback = 4
 var hit
+var rng = RandomNumberGenerator.new()
 
 func _ready():
 	set_physics_process(false)
@@ -65,8 +68,25 @@ func _physics_process(delta):
 		if body.is_in_group(enemy_group) and not is_owner(body) and not body.invulnerable and hit.find(body) == -1:
 #			if parent is player and body is killed,
 #			increment skeleton's kills by 1
-			if get_node(owner_path).name == "Player" and body.hp - damage <= 0:
-				get_parent().kills += 1
+			if body.hp - damage <= 0:
+				if get_node(owner_path).name == "Player":
+					get_parent().kills += 1
+				elif body.name == "Player":
+					rng.randomize()
+					for frame in range(10): # 10 is number of skeleton bones
+						var bone = SkeletonBones.instance()
+						bone.get_node("AnimatedSprite").frame = frame
+						bone.set_position(body.position + Vector2(rng.randi_range(-8, 8), rng.randi_range(-24, 8)))
+						var direction = deg2rad(-90 + body.dir * rng.randi_range(30, 60))
+						var speed = rng.randi_range(2, 5)
+						bone.motion = speed * Vector2(cos(direction), sin(direction))
+						
+						if frame == 5:
+							bone.set_rotation_degrees(155)
+						else:
+							bone.set_rotation_degrees(rng.randi_range(1, 360))
+						
+						get_tree().get_current_scene().add_child(bone)
 			
 			body.take_hit(damage, knockback, -1 if get_parent().position.x < body.position.x else 1) # new_dir can also be -get_parent().dir, but this may be better
 #			add body to list of hit bodies
