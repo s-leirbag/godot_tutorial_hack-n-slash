@@ -25,7 +25,7 @@ func take_hit(damage, knockback, new_dir):
 	hp -= damage
 	if hp <= 0:
 		queue_free()
-		for i in range(experience_yield):
+		for i in range(min(experience_yield, 100)):
 			var experience_instance = ExperienceScene.instance()
 			experience_instance.set_position(position + Vector2(rng.randi_range(-4, 4), rng.randi_range(-4, 4)))
 			get_parent().add_child(experience_instance)

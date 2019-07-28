@@ -1,7 +1,7 @@
 # Crow.gd
 extends "res://Character.gd"
 
-const Attack = {DAMAGE = 5, KNOCKBACK = Vector2(150, 0), TYPE = "rectangle", X = 0, Y = 0, WIDTH = 10, HEIGHT = 10}
+const Attack = {DAMAGE = 5, KNOCKBACK = Vector2(150, 0), TYPE = "rectangle", X = 1, Y = 4, WIDTH = 9, HEIGHT = 20}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

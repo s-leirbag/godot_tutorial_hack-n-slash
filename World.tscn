@@ -1,15 +1,16 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://assets/sprites/Environment/s_clouds.png" type="Texture" id=1]
-[ext_resource path="res://assets/sprites/Environment/s_graves.png" type="Texture" id=2]
-[ext_resource path="res://BaseTileset.tres" type="TileSet" id=3]
-[ext_resource path="res://FenceGraveTileset.tres" type="TileSet" id=4]
-[ext_resource path="res://Knight.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Crow.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Player.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Camera2D.gd" type="Script" id=8]
-[ext_resource path="res://HUD.gd" type="Script" id=9]
-[ext_resource path="res://MonochromeGray.theme" type="Theme" id=10]
+[ext_resource path="res://World.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites/Environment/s_clouds.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/Environment/s_graves.png" type="Texture" id=3]
+[ext_resource path="res://BaseTileset.tres" type="TileSet" id=4]
+[ext_resource path="res://FenceGraveTileset.tres" type="TileSet" id=5]
+[ext_resource path="res://Knight.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Crow.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Camera2D.gd" type="Script" id=9]
+[ext_resource path="res://HUD.gd" type="Script" id=10]
+[ext_resource path="res://MonochromeGray.theme" type="Theme" id=11]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends TileMap
@@ -25,6 +26,7 @@ func _ready():
 		set_cell(x, 6, rng.randi_range(-1, 2))"
 
 [node name="World" type="Node"]
+script = ExtResource( 1 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 editor/display_folded = true
@@ -40,7 +42,7 @@ __meta__ = {
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/Clouds"]
 modulate = Color( 0.85098, 0.85098, 0.85098, 1 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 centered = false
 
 [node name="FarGraves" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -54,7 +56,7 @@ __meta__ = {
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/FarGraves"]
 modulate = Color( 0.498039, 0.498039, 0.498039, 1 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 centered = false
 
 [node name="CloseGraves" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -68,14 +70,15 @@ __meta__ = {
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/CloseGraves"]
 modulate = Color( 0.4, 0.4, 0.4, 1 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 centered = false
 
 [node name="Environment" type="Node" parent="."]
+editor/display_folded = true
 
 [node name="Base" type="TileMap" parent="Environment"]
 position = Vector2( 0, 8 )
-tile_set = ExtResource( 3 )
+tile_set = ExtResource( 4 )
 cell_size = Vector2( 32, 32 )
 collision_bounce = 1.0
 format = 1
@@ -83,7 +86,7 @@ tile_data = PoolIntArray( 589814, 0, 0, 589815, 0, 0, 589816, 0, 0, 589817, 0, 0
 
 [node name="FenceGrave" type="TileMap" parent="Environment"]
 position = Vector2( 0, 16 )
-tile_set = ExtResource( 4 )
+tile_set = ExtResource( 5 )
 cell_size = Vector2( 16, 40 )
 format = 1
 tile_data = PoolIntArray( 458741, 3, 0, 393266, 3, 0 )
@@ -91,28 +94,28 @@ script = SubResource( 1 )
 
 [node name="Knight" parent="." groups=[
 "characters",
-] instance=ExtResource( 5 )]
+] instance=ExtResource( 6 )]
 position = Vector2( 380, 272 )
 
 [node name="Knight2" parent="." groups=[
 "characters",
-] instance=ExtResource( 5 )]
+] instance=ExtResource( 6 )]
 position = Vector2( 440, 272 )
 
 [node name="Knight3" parent="." groups=[
 "characters",
-] instance=ExtResource( 5 )]
+] instance=ExtResource( 6 )]
 position = Vector2( 500, 272 )
 
-[node name="Crow" parent="." instance=ExtResource( 6 )]
+[node name="Crow" parent="." instance=ExtResource( 7 )]
 position = Vector2( 26.0409, 276.131 )
 
-[node name="Crow2" parent="." instance=ExtResource( 6 )]
+[node name="Crow2" parent="." instance=ExtResource( 7 )]
 position = Vector2( 709.504, 271.214 )
 
 [node name="Player" parent="." groups=[
 "characters",
-] instance=ExtResource( 7 )]
+] instance=ExtResource( 8 )]
 position = Vector2( 320, 272 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -123,18 +126,18 @@ limit_left = -320
 limit_right = 960
 drag_margin_h_enabled = false
 drag_margin_v_enabled = false
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 
 [node name="HUD" type="Node2D" parent="."]
 editor/display_folded = true
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 
 [node name="HealthBar" type="ProgressBar" parent="HUD"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 206.0
 margin_bottom = 14.0
-theme = ExtResource( 10 )
+theme = ExtResource( 11 )
 percent_visible = false
 
 [node name="KillsLabel" type="Label" parent="HUD"]
@@ -142,7 +145,7 @@ margin_left = 8.0
 margin_top = 20.0
 margin_right = 65.0
 margin_bottom = 40.0
-theme = ExtResource( 10 )
+theme = ExtResource( 11 )
 text = "Kills: 0"
 
 [node name="LevelLabel" type="Label" parent="HUD"]
@@ -150,5 +153,5 @@ margin_left = 71.0
 margin_top = 20.0
 margin_right = 138.0
 margin_bottom = 40.0
-theme = ExtResource( 10 )
+theme = ExtResource( 11 )
 text = "Level: 1"
