@@ -21,9 +21,10 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 3.60208
+radius = 2.32387
 
 [node name="SkeletonBones" type="KinematicBody2D"]
+collision_mask = 0
 script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

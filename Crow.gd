@@ -17,8 +17,6 @@ func _ready():
 	$Hitbox.setup(Attack, motion.x / motion.x)
 
 func _process(delta):
-	position += motion
-	
 	match state:
 		"chase":
 			if get_parent().has_node("Player"):
@@ -31,3 +29,5 @@ func _process(delta):
 #	if out of map's right, left, or top edge
 	if position.x + $CollisionShape2D.shape.extents.x > 30 * 32 or position.x - $CollisionShape2D.shape.extents.x < -10 * 32 or position.y - $CollisionShape2D.shape.extents.y < 0:
 		queue_free()
+	
+	motion = move_and_slide(motion)

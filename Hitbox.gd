@@ -77,12 +77,12 @@ func _physics_process(delta):
 						var bone = SkeletonBones.instance()
 						bone.get_node("AnimatedSprite").frame = frame
 						bone.set_position(body.position + Vector2(rng.randi_range(-8, 8), rng.randi_range(-24, 8)))
-						var direction = deg2rad(-90 + body.dir * rng.randi_range(30, 60))
-						var speed = rng.randi_range(2, 5)
+						var direction = deg2rad(-90 + body.dir * rng.randi_range(0, 60))
+						var speed = rng.randi_range(200, 350)
 						bone.motion = speed * Vector2(cos(direction), sin(direction))
 						
 						if frame == 5:
-							bone.set_rotation_degrees(155)
+							bone.set_rotation_degrees(160)
 						else:
 							bone.set_rotation_degrees(rng.randi_range(1, 360))
 						

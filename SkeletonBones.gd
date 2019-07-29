@@ -1,12 +1,14 @@
 extends KinematicBody2D
 
-const GRAVITY = 0.2
+const UP = Vector2(0, -1)
+const GRAVITY = 20
 
 var motion = Vector2()
 
-func _ready():
-	pass
-
 func _process(delta):
-	position += motion
 	motion.y += GRAVITY
+	if is_on_floor():
+		motion.x = 0
+		motion.y = 0
+	
+	motion = move_and_slide(motion, UP)
