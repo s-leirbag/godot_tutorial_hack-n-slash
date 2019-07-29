@@ -10,17 +10,19 @@ func _ready():
 
 func _process(delta):
 	var num_enemies = get_tree().get_nodes_in_group("enemies").size()
-	
-	if has_node("Player") and num_enemies <= 5 and num_enemies <= get_node("Player").kills / 4:
+
+	if has_node("Player") and num_enemies <= 5 and num_enemies <= get_node("Player").kills / 2:
 		rng.randomize()
 		var enemy = Knight.instance() if rng.randi_range(1, 3) == 1 else Crow.instance()
 
 		var new_x = rng.randi_range(-128, floor(get_node("Player").position.x) - 220) if rng.randi_range(1, 2) == 1 else rng.randi_range(floor(get_node("Player").position.x) + 220, 640 + 128)
-		
+
 		enemy.position.x = new_x
 		if enemy.filename == "res://Knight.tscn":
 			enemy.position.y = 272
 		else:
 			enemy.position.y = get_node("Player").position.y #rng.randi_range(272 + 5, 272 - 5)
-		
+
+		#print(str("spawned at x: ", enemy.position.x, " y: ", enemy.position.y))
+
 		add_child(enemy)

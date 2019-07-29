@@ -19,7 +19,7 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 9, 20 )
 
-[node name="Crow" index="0" groups=[
+[node name="Crow" groups=[
 "enemies",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -27,8 +27,6 @@ script = ExtResource( 2 )
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 1 )
 animation = "fly"
-frame = 4
-playing = true
 
 [node name="CollisionShape2D" parent="." index="1"]
 visible = false

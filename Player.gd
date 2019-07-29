@@ -123,7 +123,7 @@ func _process(delta):
 
 	if friction == true:
 		if is_on_floor():
-			motion.x = lerp(motion.x, 0, 0.2)
+			motion.x = lerp(motion.x, 0, 0.175)
 		else:
 			motion.x = lerp(motion.x, 0, 0.05)
 	

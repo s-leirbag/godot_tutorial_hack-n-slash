@@ -20,9 +20,9 @@ func _process(delta):
 			if move_to_player:
 				move_to_player = false
 	
-	if move_to_player and get_parent().has_node("Player"):
-		motion.x = lerp(motion.x, 2.5 * point_direction(get_position(), get_parent().get_node("Player").get_position()).x, 0.2)
-		motion.y = lerp(motion.y, 2.5 * point_direction(get_position(), get_parent().get_node("Player").get_position()).y, 0.2)
+	if move_to_player and has_node("/root/World/Player"):
+		motion.x = lerp(motion.x, 2.5 * point_direction(get_position(), get_node("/root/World/Player").get_position()).x, 0.2)
+		motion.y = lerp(motion.y, 2.5 * point_direction(get_position(), get_node("/root/World/Player").get_position()).y, 0.2)
 		if motion.length() > max_speed:
 			motion *= max_speed / motion.length()
 

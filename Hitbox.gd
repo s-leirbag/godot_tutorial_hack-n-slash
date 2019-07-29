@@ -66,11 +66,15 @@ func _physics_process(delta):
 #		and body is not in an invulnerable state
 #		and body isn't already hit
 		if body.is_in_group(enemy_group) and not is_owner(body) and not body.invulnerable and hit.find(body) == -1:
-#			if parent is player and body is killed,
-#			increment skeleton's kills by 1
+			if body.name == "Player":
+				get_node("/root/World/Camera2D").add_screenshake(4, 8)
+			
+#			if body is killed
 			if body.hp - damage <= 0:
+#				if body is killed by player
 				if get_node(owner_path).name == "Player":
 					get_parent().kills += 1
+#				if player is killed
 				elif body.name == "Player":
 					rng.randomize()
 					for frame in range(10): # 10 is number of skeleton bones

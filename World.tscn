@@ -1,16 +1,14 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/Environment/s_clouds.png" type="Texture" id=2]
 [ext_resource path="res://assets/sprites/Environment/s_graves.png" type="Texture" id=3]
 [ext_resource path="res://BaseTileset.tres" type="TileSet" id=4]
 [ext_resource path="res://FenceGraveTileset.tres" type="TileSet" id=5]
-[ext_resource path="res://Knight.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Crow.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Player.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Camera2D.gd" type="Script" id=9]
-[ext_resource path="res://HUD.gd" type="Script" id=10]
-[ext_resource path="res://MonochromeGray.theme" type="Theme" id=11]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Camera2D.gd" type="Script" id=7]
+[ext_resource path="res://HUD.gd" type="Script" id=8]
+[ext_resource path="res://MonochromeGray.theme" type="Theme" id=9]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends TileMap
@@ -82,7 +80,7 @@ tile_set = ExtResource( 4 )
 cell_size = Vector2( 32, 32 )
 collision_bounce = 1.0
 format = 1
-tile_data = PoolIntArray( 589814, 0, 0, 589815, 0, 0, 589816, 0, 0, 589817, 0, 0, 589818, 0, 0, 589819, 0, 0, 589820, 0, 0, 589821, 0, 0, 589822, 0, 0, 589823, 0, 0, 524288, 536870912, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 524304, 0, 0, 524305, 0, 0, 524306, 0, 0, 524307, 536870912, 0, 524308, 0, 0, 524309, 0, 0, 524310, 0, 0, 524311, 0, 0, 524312, 0, 0, 524313, 0, 0, 524314, 0, 0, 524315, 0, 0, 524316, 0, 0, 524317, 0, 0, 655350, 1, 0, 655351, 1, 0, 655352, 1, 0, 655353, 1, 0, 655354, 1, 0, 655355, 1, 0, 655356, 1, 0, 655357, 1, 0, 655358, 1, 0, 655359, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 1, 0, 589828, 1, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 589839, 1, 0, 589840, 1, 0, 589841, 1, 0, 589842, 1, 0, 589843, 1, 0, 589844, 1, 0, 589845, 1, 0, 589846, 1, 0, 589847, 1, 0, 589848, 1, 0, 589849, 1, 0, 589850, 1, 0, 589851, 1, 0, 589852, 1, 0, 589853, 1, 0, 720886, 1, 0, 720887, 1, 0, 720888, 1, 0, 720889, 1, 0, 720890, 1, 0, 720891, 1, 0, 720892, 1, 0, 720893, 1, 0, 720894, 1, 0, 720895, 1, 0, 655360, 1, 0, 655361, 1, 0, 655362, 1, 0, 655363, 1, 0, 655364, 1, 0, 655365, 1, 0, 655366, 1, 0, 655367, 1, 0, 655368, 1, 0, 655369, 1, 0, 655370, 1, 0, 655371, 1, 0, 655372, 1, 0, 655373, 1, 0, 655374, 1, 0, 655375, 1, 0, 655376, 1, 0, 655377, 1, 0, 655378, 1, 0, 655379, 1, 0, 655380, 1, 0, 655381, 1, 0, 655382, 1, 0, 655383, 1, 0, 655384, 1, 0, 655385, 1, 0, 655386, 1, 0, 655387, 1, 0, 655388, 1, 0, 655389, 1, 0 )
+tile_data = PoolIntArray( 589814, 0, 0, 589815, 0, 0, 589816, 0, 0, 589817, 0, 0, 589818, 0, 0, 589819, 0, 0, 589820, 0, 0, 589821, 0, 0, 589822, 0, 0, 589823, 0, 0, 524288, 536870912, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 524304, 0, 0, 524305, 0, 0, 524306, 0, 0, 524307, 536870912, 0, 524308, 0, 0, 524309, 0, 0, 524310, 0, 0, 524311, 0, 0, 524312, 0, 0, 524313, 0, 0, 524314, 0, 0, 524315, 0, 0, 524316, 0, 0, 524317, 0, 0, 655350, 1, 0, 655351, 1, 0, 655352, 1, 0, 655353, 1, 0, 655354, 1, 0, 655355, 1, 0, 655356, 1, 0, 655357, 1, 0, 655358, 1, 0, 655359, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 1, 0, 589828, 1, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 589839, 1, 0, 589840, 1, 0, 589841, 1, 0, 589842, 1, 0, 589843, 1, 0, 589844, 1, 0, 589845, 1, 0, 589846, 1, 0, 589847, 1, 0, 589848, 1, 0, 589849, 1, 0, 589850, 1, 0, 589851, 1, 0, 589852, 1, 0, 589853, 1, 0, 720886, 1, 0, 720887, 1, 0, 720888, 1, 0, 720889, 1, 0, 720890, 1, 0, 720891, 1, 0, 720892, 1, 0, 720893, 1, 0, 720894, 1, 0, 720895, 1, 0, 655360, 1, 0, 655361, 1, 0, 655362, 1, 0, 655363, 1, 0, 655364, 1, 0, 655365, 1, 0, 655366, 1, 0, 655367, 1, 0, 655368, 1, 0, 655369, 1, 0, 655370, 1, 0, 655371, 1, 0, 655372, 1, 0, 655373, 1, 0, 655374, 1, 0, 655375, 1, 0, 655376, 1, 0, 655377, 1, 0, 655378, 1, 0, 655379, 1, 0, 655380, 1, 0, 655381, 1, 0, 655382, 1, 0, 655383, 1, 0, 655384, 1, 0, 655385, 1, 0, 655386, 1, 0, 655387, 1, 0, 655388, 1, 0, 655389, 1, 0, 786422, 1, 0, 786423, 1, 0, 786424, 1, 0, 786425, 1, 0, 786426, 1, 0, 786427, 1, 0, 786428, 1, 0, 786429, 1, 0, 786430, 1, 0, 786431, 1, 0, 720896, 1, 0, 720897, 1, 0, 720898, 1, 0, 720899, 1, 0, 720900, 1, 0, 720901, 1, 0, 720902, 1, 0, 720903, 1, 0, 720904, 1, 0, 720905, 1, 0, 720906, 1, 0, 720907, 1, 0, 720908, 1, 0, 720909, 1, 0, 720910, 1, 0, 720911, 1, 0, 720912, 1, 0, 720913, 1, 0, 720914, 1, 0, 720915, 1, 0, 720916, 1, 0, 720917, 1, 0, 720918, 1, 0, 720919, 1, 0, 720920, 1, 0, 720921, 1, 0, 720922, 1, 0, 720923, 1, 0, 720924, 1, 0, 720925, 1, 0 )
 
 [node name="FenceGrave" type="TileMap" parent="Environment"]
 position = Vector2( 0, 16 )
@@ -92,30 +90,9 @@ format = 1
 tile_data = PoolIntArray( 458741, 3, 0, 393266, 3, 0 )
 script = SubResource( 1 )
 
-[node name="Knight" parent="." groups=[
-"characters",
-] instance=ExtResource( 6 )]
-position = Vector2( 380, 272 )
-
-[node name="Knight2" parent="." groups=[
-"characters",
-] instance=ExtResource( 6 )]
-position = Vector2( 440, 272 )
-
-[node name="Knight3" parent="." groups=[
-"characters",
-] instance=ExtResource( 6 )]
-position = Vector2( 500, 272 )
-
-[node name="Crow" parent="." instance=ExtResource( 7 )]
-position = Vector2( 26.0409, 276.131 )
-
-[node name="Crow2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 709.504, 271.214 )
-
 [node name="Player" parent="." groups=[
 "characters",
-] instance=ExtResource( 8 )]
+] instance=ExtResource( 6 )]
 position = Vector2( 320, 272 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -126,18 +103,25 @@ limit_left = -320
 limit_right = 960
 drag_margin_h_enabled = false
 drag_margin_v_enabled = false
-script = ExtResource( 9 )
+script = ExtResource( 7 )
+
+[node name="ShakeTimer" type="Timer" parent="Camera2D"]
+wait_time = 0.04
+
+[node name="EndShakeTimer" type="Timer" parent="Camera2D"]
+wait_time = 0.2
+one_shot = true
 
 [node name="HUD" type="Node2D" parent="."]
 editor/display_folded = true
-script = ExtResource( 10 )
+script = ExtResource( 8 )
 
 [node name="HealthBar" type="ProgressBar" parent="HUD"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 206.0
 margin_bottom = 14.0
-theme = ExtResource( 11 )
+theme = ExtResource( 9 )
 percent_visible = false
 
 [node name="KillsLabel" type="Label" parent="HUD"]
@@ -145,7 +129,7 @@ margin_left = 8.0
 margin_top = 20.0
 margin_right = 65.0
 margin_bottom = 40.0
-theme = ExtResource( 11 )
+theme = ExtResource( 9 )
 text = "Kills: 0"
 
 [node name="LevelLabel" type="Label" parent="HUD"]
@@ -153,5 +137,7 @@ margin_left = 71.0
 margin_top = 20.0
 margin_right = 138.0
 margin_bottom = 40.0
-theme = ExtResource( 11 )
+theme = ExtResource( 9 )
 text = "Level: 1"
+[connection signal="timeout" from="Camera2D/ShakeTimer" to="Camera2D" method="_on_ShakeTimer_timeout"]
+[connection signal="timeout" from="Camera2D/EndShakeTimer" to="Camera2D" method="_on_EndShakeTimer_timeout"]

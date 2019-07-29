@@ -36,7 +36,7 @@ func take_hit(damage, knockback, new_dir):
 		$AnimatedSprite.offset.x = -7 * dir
 		$AnimatedSprite.flip_h = false if dir == 1 else true
 		$Hitbox.set_physics_process(false)
-		motion = knockback * -dir
+		motion = Vector2(knockback.x * -dir, knockback.y)
 
 func frame_in_range(low, high):
 	return $AnimatedSprite.frame >= low and $AnimatedSprite.frame <= high
