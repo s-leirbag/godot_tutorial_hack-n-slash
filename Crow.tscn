@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Crow.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/sprites/Crow/fly/crow_fly_3.png" type="Texture" id=5]
 [ext_resource path="res://assets/sprites/Crow/fly/crow_fly_4.png" type="Texture" id=6]
 [ext_resource path="res://assets/sprites/Crow/fly/crow_fly_5.png" type="Texture" id=7]
+[ext_resource path="res://MonochromeGray.theme" type="Theme" id=8]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -19,7 +20,9 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 9, 20 )
 
-[node name="Crow" groups=[
+[sub_resource type="DynamicFont" id=3]
+
+[node name="Crow" index="0" groups=[
 "enemies",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -32,3 +35,21 @@ animation = "fly"
 visible = false
 position = Vector2( 1, -4 )
 shape = SubResource( 2 )
+
+[node name="HealthBar" type="ProgressBar" parent="." index="3"]
+visible = false
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -12.0
+margin_top = -30.0
+margin_right = 11.0
+margin_bottom = -28.0
+theme = ExtResource( 8 )
+custom_fonts/font = SubResource( 3 )
+percent_visible = false
+
+[node name="HealthBarTimer" type="Timer" parent="." index="4"]
+wait_time = 2.0
+one_shot = true
+[connection signal="timeout" from="HealthBarTimer" to="." method="_on_HealthBarTimer_timeout"]

@@ -10,5 +10,9 @@ func _process(delta):
 	if is_on_floor():
 		motion.x = 0
 		motion.y = 0
+		
+#		for debugging
+		position.y -= 20
+		set_process(false)
 	
 	motion = move_and_slide(motion, UP)

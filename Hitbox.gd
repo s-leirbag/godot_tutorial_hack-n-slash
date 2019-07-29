@@ -66,16 +66,14 @@ func _physics_process(delta):
 #		and body is not in an invulnerable state
 #		and body isn't already hit
 		if body.is_in_group(enemy_group) and not is_owner(body) and not body.invulnerable and hit.find(body) == -1:
+			print(body.name)
 			if body.name == "Player":
 				get_node("/root/World/Camera2D").add_screenshake(4, 8)
-			
-#			if body is killed
-			if body.hp - damage <= 0:
-#				if body is killed by player
-				if get_node(owner_path).name == "Player":
-					get_parent().kills += 1
+				
 #				if player is killed
-				elif body.name == "Player":
+				if body.hp - damage <= 0:
+					print("==")
+					
 					rng.randomize()
 					for frame in range(10): # 10 is number of skeleton bones
 						var bone = SkeletonBones.instance()
@@ -91,6 +89,20 @@ func _physics_process(delta):
 							bone.set_rotation_degrees(rng.randi_range(1, 360))
 						
 						get_tree().get_current_scene().add_child(bone)
+						
+#						for debugging
+						print(bone.get_node("AnimatedSprite").frame)
+#						BUG FOUND! THIS BONE LOOP HAPPENS TWICE
+					
+					for node in hit:
+						print(node.name)
+			else:
+				body.get_node("HealthBar").visible = true
+				body.get_node("HealthBarTimer").start()
+				
+#				if killed by the player, increment kills
+				if get_node(owner_path).name == "Player":
+					get_parent().kills += 1
 			
 			body.take_hit(damage, knockback, -1 if get_parent().position.x < body.position.x else 1) # new_dir can also be -get_parent().dir, but this may be better
 #			add body to list of hit bodies
