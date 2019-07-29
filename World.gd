@@ -21,7 +21,7 @@ func _process(delta):
 		if enemy.filename == "res://Knight.tscn":
 			enemy.position.y = 272
 		else:
-			enemy.position.y = get_node("Player").position.y #rng.randi_range(272 + 5, 272 - 5)
+			enemy.position.y = get_node("Player").position.y + rng.randi_range(-7, 7)
 
 		#print(str("spawned at x: ", enemy.position.x, " y: ", enemy.position.y))
 
