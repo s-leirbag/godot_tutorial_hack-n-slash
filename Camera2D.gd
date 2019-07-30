@@ -1,6 +1,7 @@
 extends Camera2D
 
 var target_offset = Vector2()
+var shake_intensity
 
 # starts at player
 func _ready():
@@ -26,15 +27,15 @@ func _process(delta):
 			position.y = limit_bottom - 90
 
 # start shake timer and endshake timer
-func add_screenshake(intensity, duration):
+func add_screenshake(intensity):
+	shake_intensity = intensity
 	$ShakeTimer.set_paused(false)
 	$ShakeTimer.start()
 	$EndShakeTimer.start()
 
 # make new offset to shake to
 func _on_ShakeTimer_timeout():
-	var intensity = 20
-	target_offset = Vector2(rand_range(-intensity, intensity), -2 + rand_range(-intensity, intensity))
+	target_offset = Vector2(rand_range(-shake_intensity, shake_intensity), -2 + rand_range(-shake_intensity, shake_intensity))
 
 # reset offset and stop shaking
 func _on_EndShakeTimer_timeout():

@@ -2,6 +2,7 @@
 extends Area2D
 
 var SkeletonBones = load("res://SkeletonBones.tscn")
+var ParticleEmitterScene = load("res://ParticleEmitter.tscn")
 
 var owner_path
 var enemy_group
@@ -66,9 +67,8 @@ func _physics_process(delta):
 #		and body is not in an invulnerable state
 #		and body isn't already hit
 		if body.is_in_group(enemy_group) and not is_owner(body) and not body.invulnerable and hit.find(body) == -1:
-			print(body.name)
 			if body.name == "Player":
-				get_node("/root/World/Camera2D").add_screenshake(4, 8)
+				get_node("/root/World/Camera2D").add_screenshake(20)
 				
 #				if player is killed
 				if body.hp - damage <= 0:
@@ -100,11 +100,18 @@ func _physics_process(delta):
 				body.get_node("HealthBar").visible = true
 				body.get_node("HealthBarTimer").start()
 				
+				get_node("/root/World/Camera2D").add_screenshake(3)
+				
 #				if killed by the player, increment kills
-				if get_node(owner_path).name == "Player":
+				if body.hp - damage <= 0:
 					get_parent().kills += 1
 			
 			body.take_hit(damage, knockback, -1 if get_parent().position.x < body.position.x else 1) # new_dir can also be -get_parent().dir, but this may be better
+#			particle effect
+			var particle_emitter = ParticleEmitterScene.instance()
+			get_node("/root/World").add_child(particle_emitter)
+			particle_emitter.setup(body.position.x + body.dir * 4, body.position.y)
+			
 #			add body to list of hit bodies
 			hit.push_back(body)
 

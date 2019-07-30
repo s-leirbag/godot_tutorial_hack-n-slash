@@ -15,14 +15,20 @@ func _process(delta):
 		rng.randomize()
 		var enemy = Knight.instance() if rng.randi_range(1, 3) == 1 else Crow.instance()
 
-		var new_x = rng.randi_range(-128, floor(get_node("Player").position.x) - 220) if rng.randi_range(1, 2) == 1 else rng.randi_range(floor(get_node("Player").position.x) + 220, 640 + 128)
-
-		enemy.position.x = new_x
+#		set enemy position
+		if get_node("Player").position.x - 220 < -128:
+			enemy.position.x = rng.randi_range(floor(get_node("Player").position.x) + 220, 640 + 128)
+		elif get_node("Player").position.x + 220 > 640 + 128:
+			enemy.position.x = rng.randi_range(-128, floor(get_node("Player").position.x) - 220)
+		else:
+			enemy.position.x = rng.randi_range(-128, floor(get_node("Player").position.x) - 220) if rng.randi_range(1, 2) == 1 else rng.randi_range(floor(get_node("Player").position.x) + 220, 640 + 128)
+		
 		if enemy.filename == "res://Knight.tscn":
 			enemy.position.y = 272
 		else:
 			enemy.position.y = get_node("Player").position.y + rng.randi_range(-7, 7)
-
-		#print(str("spawned at x: ", enemy.position.x, " y: ", enemy.position.y))
+		
+#		for debugging
+#		print(str("spawned at x: ", enemy.position.x, " y: ", enemy.position.y))
 
 		add_child(enemy)
