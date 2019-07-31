@@ -9,7 +9,7 @@
 [ext_resource path="res://Camera2D.gd" type="Script" id=7]
 [ext_resource path="res://HUD.gd" type="Script" id=8]
 [ext_resource path="res://MonochromeGray.theme" type="Theme" id=9]
-[ext_resource path="res://Knight.tscn" type="PackedScene" id=10]
+[ext_resource path="res://ParticleEmitter.tscn" type="PackedScene" id=10]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends TileMap
@@ -142,7 +142,7 @@ margin_bottom = 40.0
 theme = ExtResource( 9 )
 text = "Level: 1"
 
-[node name="Knight" parent="." instance=ExtResource( 10 )]
-position = Vector2( 380, 272 )
+[node name="ParticleEmitter" parent="." instance=ExtResource( 10 )]
+position = Vector2( 343.283, 238.95 )
 [connection signal="timeout" from="Camera2D/ShakeTimer" to="Camera2D" method="_on_ShakeTimer_timeout"]
 [connection signal="timeout" from="Camera2D/EndShakeTimer" to="Camera2D" method="_on_EndShakeTimer_timeout"]

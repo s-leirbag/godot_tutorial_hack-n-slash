@@ -1,6 +1,8 @@
 # Crow.gd
 extends "res://Character.gd"
 
+var ParticleEmitterScene = load("res://ParticleEmitter.tscn")
+
 const Attack = {DAMAGE = 5, KNOCKBACK = Vector2(200, -90), TYPE = "rectangle", X = 1, Y = 4, WIDTH = 9, HEIGHT = 20}
 
 var draw_hp
@@ -29,6 +31,13 @@ func _process(delta):
 				else:
 					$Hitbox.set_physics_process(false)
 					motion.y -= 1
+		"death":
+			get_node("/root/World/Player").kills += 1
+#			particle effect
+			var particle_emitter = ParticleEmitterScene.instance()
+			particle_emitter.setup(1, 4, 6, position.x + rand_range(-4, 4) + dir * 4, position.y + rand_range(-4, 4))
+			get_node("/root/World").add_child(particle_emitter)
+			queue_free()
 	
 #	if out of map's right, left, or top edge
 	if position.x + $CollisionShape2D.shape.extents.x > 30 * 32 or position.x - $CollisionShape2D.shape.extents.x < -10 * 32 or position.y - $CollisionShape2D.shape.extents.y < 0:

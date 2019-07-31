@@ -55,6 +55,10 @@ func _process(delta):
 				state = "chase"
 				$AnimatedSprite.play("idle")
 				$AnimatedSprite.offset.x = -3 * dir
+		"death":
+			get_node("/root/World/Player").kills += 1
+			queue_free()
+	
 	if friction == true:
 		motion.x = lerp(motion.x, 0, 0.2)
 #		for jumps

@@ -21,10 +21,10 @@ func _ready():
 	rng = RandomNumberGenerator.new()
 
 func take_hit(damage, knockback, new_dir):
-	rng.randomize()
 	hp -= damage
 	if hp <= 0:
-		queue_free()
+		state = "death"
+		rng.randomize()
 		for i in range(min(experience_yield, 100)):
 			var experience_instance = ExperienceScene.instance()
 			experience_instance.set_position(position + Vector2(rng.randi_range(-4, 4), rng.randi_range(-4, 4)))

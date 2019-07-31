@@ -22,7 +22,7 @@ extents = Vector2( 9, 20 )
 
 [sub_resource type="DynamicFont" id=3]
 
-[node name="Crow" index="0" groups=[
+[node name="Crow" groups=[
 "enemies",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )

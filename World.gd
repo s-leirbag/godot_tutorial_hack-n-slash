@@ -13,7 +13,7 @@ func _process(delta):
 
 	if has_node("Player") and num_enemies <= 5 and num_enemies <= get_node("Player").kills / 2:
 		rng.randomize()
-		var enemy = Knight.instance() if rng.randi_range(1, 3) == 1 else Crow.instance()
+		var enemy = Crow.instance() if rng.randi_range(1, 3) == 1 else Crow.instance()
 
 #		set enemy position
 		if get_node("Player").position.x - 220 < -128:

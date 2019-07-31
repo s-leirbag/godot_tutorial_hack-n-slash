@@ -1,6 +1,8 @@
 # Player.gd
 extends "res://Character.gd"
 
+var SkeletonBones = load("res://SkeletonBones.tscn")
+
 # Movement constants
 const ACCEL = 50
 const MAX_SPEED = 200
@@ -46,16 +48,16 @@ func _process(delta):
 					$AnimatedSprite.play("roll")
 					$AnimatedSprite.offset.x = -7 * dir
 					friction = false
-					invulnerable = true
 					has_roll = true
+					invulnerable = true
 				elif has_roll:
 					motion.x = ROLL_SPEED * dir
 					state = "roll"
 					$AnimatedSprite.play("roll")
 					$AnimatedSprite.offset.x = -7 * dir
 					friction = false
-					invulnerable = true
 					has_roll = false
+					invulnerable = true
 			elif Input.is_action_just_pressed("w"):
 				if is_on_floor():
 					motion.y = JUMP_HEIGHT
@@ -83,15 +85,23 @@ func _process(delta):
 				$AnimatedSprite.offset.x = -7 * dir
 		"roll":
 			friction = false
-			if Input.is_action_just_pressed("w"):
+			if Input.is_action_just_pressed("lclick"):
+				state = "attack1"
+				$AnimatedSprite.play("attack1")
+				$AnimatedSprite.offset.x = 5 * dir
+				$Hitbox.setup(Attack1, dir)
+				invulnerable = false
+			elif Input.is_action_just_pressed("w"):
 				if is_on_floor():
 					motion.y = JUMP_HEIGHT
 					has_jump = true
 					state = "move"
+					invulnerable = false
 				elif has_jump:
 					motion.y = JUMP_HEIGHT
 					has_jump = false
 					state = "move"
+					invulnerable = false
 		"attack1":
 			if frame_in_range(0, 1):
 				$Hitbox.set_physics_process(true)
@@ -120,6 +130,26 @@ func _process(delta):
 		"knockback":
 			if motion.x < 1:
 				state = "move"
+		"death":
+			print("==")
+			var rng = RandomNumberGenerator.new()
+			rng.randomize()
+			for frame in range(10): # 10 is number of skeleton bones
+				var bone = SkeletonBones.instance()
+				bone.get_node("AnimatedSprite").frame = frame
+				bone.set_position(position + Vector2(rng.randi_range(-8, 8), rng.randi_range(-24, 8)))
+				var direction = deg2rad(-90 + dir * rng.randi_range(0, 60))
+				var speed = rng.randi_range(200, 350)
+				bone.motion = speed * Vector2(cos(direction), sin(direction))
+				
+				if frame == 5:
+					bone.set_rotation_degrees(160)
+				else:
+					bone.set_rotation_degrees(rng.randi_range(1, 360))
+				
+				get_node("/root/World").add_child(bone)
+			
+			queue_free()
 
 	if friction == true:
 		if is_on_floor():
