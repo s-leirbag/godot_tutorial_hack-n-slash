@@ -32,7 +32,7 @@ func _process(delta):
 	experience_yield = max_experience + experience
 	
 	var friction = true
-	motion.y += GRAVITY
+	motion.y += GRAVITY * delta
 	
 	match state:
 		"move":

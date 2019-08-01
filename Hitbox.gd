@@ -62,9 +62,10 @@ func _physics_process(delta):
 	for body in get_overlapping_bodies():
 #		if body is an enemy
 #		and body is not this hitbox's owner
+#		and body is not dead
 #		and body is not invulnerable
 #		and body isn't already hit
-		if body.is_in_group(enemy_group) and not is_owner(body) and not body.invulnerable and hit.find(body) == -1:
+		if body.is_in_group(enemy_group) and not is_owner(body) and not body.state == "death" and not body.invulnerable and hit.find(body) == -1:
 #			player is hit
 			if body.name == "Player":
 				get_node("/root/World/Camera2D").add_screenshake(20)
@@ -76,8 +77,6 @@ func _physics_process(delta):
 #			enemy is hit
 			else:
 				get_node("/root/World/Camera2D").add_screenshake(3)
-				body.get_node("HealthBar").visible = true
-				body.get_node("HealthBarTimer").start()
 			
 #			add body to list of hit bodies
 			hit.push_back(body)

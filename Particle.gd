@@ -14,10 +14,10 @@ func setup(pos, speed, direction, dir_offset, param_gravity, lifetime, frame):
 	$ParticleTimer.start(lifetime)
 
 func _process(delta):
-	position += motion
+	position += motion * delta
 	
 	if gravity:
-		motion.y += 0.7
+		motion.y += 2000 * delta
 
 func _on_ParticleTimer_timeout():
 	queue_free()

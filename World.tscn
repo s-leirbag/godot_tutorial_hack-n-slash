@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/Environment/s_clouds.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://HUD.gd" type="Script" id=8]
 [ext_resource path="res://MonochromeGray.theme" type="Theme" id=9]
 [ext_resource path="res://ParticleEmitter.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Boss.tscn" type="PackedScene" id=11]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends TileMap
@@ -144,5 +145,8 @@ text = "Level: 1"
 
 [node name="ParticleEmitter" parent="." instance=ExtResource( 10 )]
 position = Vector2( 343.283, 238.95 )
+
+[node name="Boss" parent="." instance=ExtResource( 11 )]
+position = Vector2( 500, 254 )
 [connection signal="timeout" from="Camera2D/ShakeTimer" to="Camera2D" method="_on_ShakeTimer_timeout"]
 [connection signal="timeout" from="Camera2D/EndShakeTimer" to="Camera2D" method="_on_EndShakeTimer_timeout"]

@@ -26,13 +26,13 @@ func emit_particle(frame, spread):
 	var gravity
 	
 	if frame == 0:
-		speed = rand_range(5, 10)
+		speed = rand_range(300, 500)
 		direction = rand_range(1, 360)
 		angle_offset = 0
 		lifetime = rand_range(0.1, 0.3)
 		gravity = false
 	else:
-		speed = rand_range(5, 8)
+		speed = rand_range(200, 400)
 		direction = rand_range(-110, -70)
 		angle_offset = rand_range(0, 180)
 		lifetime = rand_range(0.5, 1)

@@ -1,4 +1,4 @@
-# Knight.gd
+# Boss.gd
 extends "res://Character.gd"
 
 # Constants
@@ -15,6 +15,7 @@ func _ready():
 	draw_hp = hp
 	state = "chase"
 	$AnimatedSprite.play("walk")
+	$AnimatedSprite.offset = Vector2(2 * dir, -1)
 
 func _process(delta):
 	var friction = true
@@ -24,7 +25,7 @@ func _process(delta):
 			if has_node("/root/World/Player"):
 				state = "chase"
 				$AnimatedSprite.play("idle")
-				$AnimatedSprite.offset.x = -3 * dir
+				$AnimatedSprite.offset = Vector2(2 * dir, 2)
 		"chase":
 #			execute only if player exists
 			if has_node("/root/World/Player"):
@@ -35,16 +36,16 @@ func _process(delta):
 				if distance_to_player <= ATTACK_RANGE:
 					state = "attack"
 					$AnimatedSprite.play("attack")
-					$AnimatedSprite.offset.x = 16 * dir
+					$AnimatedSprite.offset = Vector2(30 * dir, -43)
 					$Hitbox.setup(Attack, dir)
 				else:
 					motion.x = WALK_SPEED if $AnimatedSprite.flip_h == false else -WALK_SPEED
-					$AnimatedSprite.offset.x = -3 * dir
+					$AnimatedSprite.offset = Vector2(-2 * dir, -1)
 					friction = false
 			else:
 				state = "idle"
 				$AnimatedSprite.play("idle")
-				$AnimatedSprite.offset.x = -3 * dir
+				$AnimatedSprite.offset = Vector2(2 * dir, 2)
 		"attack":
 			if frame_in_range(4, 5):
 				$Hitbox.set_physics_process(true)
@@ -54,10 +55,9 @@ func _process(delta):
 			if motion.x < 1:
 				state = "chase"
 				$AnimatedSprite.play("idle")
-				$AnimatedSprite.offset.x = -3 * dir
+				$AnimatedSprite.offset = Vector2(2 * dir, 2)
 		"death":
 			$AnimatedSprite.modulate.a -= 1 / 1.2 * delta
-			$HealthBar.modulate.a -= 1 / 1.2 * delta
 	
 	if friction == true:
 		motion.x = lerp(motion.x, 0, 0.2)
@@ -81,6 +81,6 @@ func _on_AnimatedSprite_animation_finished():
 	if state == "attack":
 		state = "chase"
 		$AnimatedSprite.play("walk")
-		$AnimatedSprite.offset.x = -3 * dir
+		$AnimatedSprite.offset = Vector2(-2 * dir, -1)
 	elif state == "death":
 		queue_free()
