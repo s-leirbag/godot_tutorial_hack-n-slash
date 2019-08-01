@@ -2,6 +2,7 @@ extends Node
 
 var Knight = load("res://Knight.tscn")
 var Crow = load("res://Crow.tscn")
+var Boss = load("res://Boss.tscn")
 
 var rng
 
@@ -9,12 +10,30 @@ func _ready():
 	rng = RandomNumberGenerator.new()
 
 func _process(delta):
-	var num_enemies = get_tree().get_nodes_in_group("enemies").size()
+	var enemies = get_tree().get_nodes_in_group("enemies")
 
-	if has_node("Player") and num_enemies <= 5 and num_enemies <= get_node("Player").kills / 2:
+	if has_node("Player") and enemies.size() <= 5 and enemies.size() <= get_node("Player").kills / 2:
 		rng.randomize()
-		var enemy = Knight.instance() if rng.randi_range(1, 3) == 1 else Crow.instance()
-
+		
+#		find if a boss exists
+		var boss_exists = false
+		for enemy in enemies:
+			if enemy.filename == "res://Boss.tscn":
+				boss_exists = true
+		
+#		choose type of enemy
+		var enemy
+		if get_node("Player").kills > 20 and not boss_exists:
+			var rand = rng.randi_range(1, 5)
+			if rand == 1 or rand == 2:
+				enemy = Knight.instance()
+			elif rand == 3 or rand == 4:
+				enemy = Crow.instance()
+			else:
+				enemy = Boss.instance()
+		else:
+			enemy = Knight.instance() if rng.randi_range(1, 3) == 1 else Crow.instance()
+		
 #		set enemy position
 		if get_node("Player").position.x - 220 < -128:
 			enemy.position.x = rng.randi_range(floor(get_node("Player").position.x) + 220, 640 + 128)
@@ -25,6 +44,8 @@ func _process(delta):
 		
 		if enemy.filename == "res://Knight.tscn":
 			enemy.position.y = 272
+		elif enemy.filename == "res://Boss.tscn":
+			enemy.position.y = 254
 		else:
 			enemy.position.y = get_node("Player").position.y + rng.randi_range(-7, 7)
 		

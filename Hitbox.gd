@@ -28,7 +28,7 @@ func setup(info, dir):
 #	make new collision shape
 #	polygon or rectangle
 	if info.TYPE == "polygon":
-		set_position(Vector2(info.X * dir, info.Y))
+		set_position(Vector2(0, 0))
 		
 #		make new CollisionPolygon2D
 		var hitbox = CollisionPolygon2D.new()
@@ -75,8 +75,10 @@ func _physics_process(delta):
 					for node in hit:
 						print(node.name)
 #			enemy is hit
-			else:
+			elif body.filename == "res://Knight.tscn" or body.filename == "res://Crow.tscn":
 				get_node("/root/World/Camera2D").add_screenshake(3)
+			elif body.filename == "res://Boss.tscn":
+				get_node("/root/World/Camera2D").add_screenshake(10)
 			
 #			add body to list of hit bodies
 			hit.push_back(body)

@@ -4,7 +4,7 @@ extends "res://Character.gd"
 # Constants
 const WALK_SPEED = 20
 const ATTACK_RANGE = 37
-const Attack = {DAMAGE = 10, KNOCKBACK = Vector2(200, -90), TYPE = "polygon", X = -3, Y = -4, POINTS = PoolVector2Array([Vector2(-17, -8), Vector2(21, 1), Vector2(31, 5), Vector2(37, 10), Vector2(37, 15), Vector2(26, 17), Vector2(8, 14), Vector2(-7, 6)])}
+const Attack = {DAMAGE = 10, KNOCKBACK = Vector2(200, -90), TYPE = "polygon", POINTS = PoolVector2Array([Vector2(-20, -12), Vector2(18, -3), Vector2(28, 1), Vector2(34, 6), Vector2(34, 11), Vector2(23, 13), Vector2(5, 10), Vector2(-10, 2)])}
 
 var draw_hp
 

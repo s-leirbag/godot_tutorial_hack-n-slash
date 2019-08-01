@@ -22,6 +22,8 @@ func _ready():
 	rng = RandomNumberGenerator.new()
 
 func take_hit(damage, knockback, new_dir):
+	$Hitbox.set_physics_process(false) # deactivate hitbox
+	
 	hp -= damage
 	if hp <= 0:
 		state = "death"
@@ -34,17 +36,20 @@ func take_hit(damage, knockback, new_dir):
 		
 		if filename != "res://Player.tscn":
 			get_node("/root/World/Player").kills += 1
-#			$HealthBar.visible = false		# optional animation instead of have bar fade with enemy
+#			$HealthBar.visible = false # optional animation instead of have bar fade with enemy
 #			$HealthBarTimer.queue_free()
-			$Hitbox.set_process(false)
+			$Hitbox.set_process(false) # deactivate hitbox
 			
 			if filename == "res://Knight.tscn":
-				
 				$AnimatedSprite.play("die")
 				$AnimatedSprite.offset.x = -7 * dir
 				$AnimatedSprite.flip_h = false if dir == 1 else true
+			elif filename == "res://Boss.tscn":
+				$AnimatedSprite.play("die")
+				$AnimatedSprite.offset = Vector2(2, 1)
+				$AnimatedSprite.flip_h = false if dir == 1 else true
 			elif filename == "res://Crow.tscn":
-		#		particle effect
+		#		feathers effect
 				var particle_emitter = ParticleEmitterScene.instance()
 				particle_emitter.setup(1, 4, 6, position.x + rand_range(-4, 4) + dir * 4, position.y + rand_range(-4, 4))
 				get_node("/root/World").add_child(particle_emitter)
@@ -52,16 +57,19 @@ func take_hit(damage, knockback, new_dir):
 	else:
 		dir = new_dir
 		state = "knockback"
-		$AnimatedSprite.play("hitstun")
-		$AnimatedSprite.offset.x = -7 * dir
 		$AnimatedSprite.flip_h = false if dir == 1 else true
-		$Hitbox.set_physics_process(false)
 		motion = Vector2(knockback.x * -dir, knockback.y)
 		
-		if filename == "res://Knight.tscn" or filename == "res://Crow.tscn":
+		if filename != "res://Player.tscn":
 			$HealthBar.visible = true
 			$HealthBarTimer.start()
-
+			
+			if filename == "res://Knight.tscn":
+				$AnimatedSprite.play("hitstun")
+				$AnimatedSprite.offset.x = -7 * dir
+			elif filename == "res://Boss.tscn":
+				$AnimatedSprite.play("idle")
+				$AnimatedSprite.offset = Vector2(2 * dir, 2)
 func frame_in_range(low, high):
 	return $AnimatedSprite.frame >= low and $AnimatedSprite.frame <= high
 

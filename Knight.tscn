@@ -23,11 +23,11 @@
 [ext_resource path="res://assets/sprites/Knight/die/knight_die_4.png" type="Texture" id=21]
 [ext_resource path="res://assets/sprites/Knight/die/knight_die_5.png" type="Texture" id=22]
 [ext_resource path="res://assets/sprites/Knight/die/knight_die_6.png" type="Texture" id=23]
-[ext_resource path="res://assets/sprites/Knight/knight_hitstun.png" type="Texture" id=24]
-[ext_resource path="res://assets/sprites/Knight/walk/knight_walk_1.png" type="Texture" id=25]
-[ext_resource path="res://assets/sprites/Knight/walk/knight_walk_2.png" type="Texture" id=26]
-[ext_resource path="res://assets/sprites/Knight/walk/knight_walk_3.png" type="Texture" id=27]
-[ext_resource path="res://assets/sprites/Knight/walk/knight_walk_4.png" type="Texture" id=28]
+[ext_resource path="res://assets/sprites/Knight/walk/knight_walk_1.png" type="Texture" id=24]
+[ext_resource path="res://assets/sprites/Knight/walk/knight_walk_2.png" type="Texture" id=25]
+[ext_resource path="res://assets/sprites/Knight/walk/knight_walk_3.png" type="Texture" id=26]
+[ext_resource path="res://assets/sprites/Knight/walk/knight_walk_4.png" type="Texture" id=27]
+[ext_resource path="res://assets/sprites/Knight/knight_hitstun.png" type="Texture" id=28]
 [ext_resource path="res://MonochromeGray.theme" type="Theme" id=29]
 
 [sub_resource type="SpriteFrames" id=1]
@@ -47,14 +47,14 @@ animations = [ {
 "name": "die",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 24 ) ],
-"loop": false,
-"name": "hitstun",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ) ],
+"frames": [ ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ) ],
 "loop": true,
 "name": "walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 28 ) ],
+"loop": false,
+"name": "hitstun",
 "speed": 5.0
 } ]
 
@@ -69,22 +69,21 @@ script = ExtResource( 2 )
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 1 )
-animation = "idle"
-offset = Vector2( -3, 0 )
+animation = "attack"
+frame = 4
+offset = Vector2( -16, 0 )
+flip_h = true
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2( 0, 8.5 )
 shape = SubResource( 2 )
-
-[node name="Hitbox" parent="." index="2"]
-visible = false
 
 [node name="HealthBar" type="ProgressBar" parent="." index="3"]
 visible = false
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -12.0
+margin_left = -13.0
 margin_top = -15.0
 margin_right = 13.0
 margin_bottom = -12.0
