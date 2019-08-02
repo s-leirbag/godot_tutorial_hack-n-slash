@@ -166,14 +166,16 @@ func _process(delta):
 				
 				get_node("/root/World").add_child(bone)
 			
-#			store info in save file
-			var save_dict = {"kills": kills}
+#			save score and update highscore in file
 			var save_file = File.new()
-			save_file.open("user://save_game.save", File.WRITE)
-			save_file.store_line(to_json(save_dict))
+			save_file.open("user://save_game.save", File.READ_WRITE)
+			var content = parse_json(save_file.get_line())
+			content.score = kills
+			if not content.has("highscore") or kills > content.highscore:
+				content.highscore = kills
+			save_file.seek(0) # this line necessary????
+			save_file.store_line(to_json(content))
 			save_file.close()
-			
-#			TODO: add highscore
 			
 			emit_signal("game_over")
 			
