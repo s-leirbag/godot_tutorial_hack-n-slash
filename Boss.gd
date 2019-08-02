@@ -36,6 +36,7 @@ func _process(delta):
 					$AnimatedSprite.flip_h = false if dir > 0 else true
 					
 					state = "attack"
+					swipe_sound_played = false
 					$AnimatedSprite.play("attack")
 					$AnimatedSprite.offset = Vector2(36 * dir, -43)
 					$Hitbox.setup(Attack, dir)
@@ -60,6 +61,10 @@ func _process(delta):
 		"attack":
 			if frame_in_range(7, 8):
 				$Hitbox.set_physics_process(true)
+				if not swipe_sound_played:
+					get_node("/root/World/BigHit").play()
+					get_node("/root/World/MediumHit").play()
+					swipe_sound_played = true
 			else:
 				$Hitbox.set_physics_process(false)
 		"knockback":

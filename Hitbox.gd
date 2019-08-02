@@ -66,7 +66,7 @@ func _physics_process(delta):
 #		and body is not invulnerable
 #		and body isn't already hit
 		if body.is_in_group(enemy_group) and not is_owner(body) and not body.state == "death" and not body.invulnerable and hit.find(body) == -1:
-#			player is hit
+#			screenshake
 			if body.name == "Player":
 				get_node("/root/World/Camera2D").add_screenshake(20)
 				
@@ -74,7 +74,6 @@ func _physics_process(delta):
 				if body.hp - damage <= 0:
 					for node in hit:
 						print(node.name)
-#			enemy is hit
 			elif body.filename == "res://Knight.tscn" or body.filename == "res://Crow.tscn":
 				get_node("/root/World/Camera2D").add_screenshake(3)
 			elif body.filename == "res://Boss.tscn":
@@ -82,6 +81,8 @@ func _physics_process(delta):
 			
 #			add body to list of hit bodies
 			hit.push_back(body)
+			
+			get_node("/root/World/MediumHit").play()
 			
 #			particle effect
 			var particle_emitter = ParticleEmitterScene.instance()

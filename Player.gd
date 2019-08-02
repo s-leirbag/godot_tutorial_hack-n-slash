@@ -1,6 +1,8 @@
 # Player.gd
 extends "res://Character.gd"
 
+signal game_over
+
 var SkeletonBones = load("res://SkeletonBones.tscn")
 
 # Movement constants
@@ -38,6 +40,7 @@ func _process(delta):
 		"move":
 			if Input.is_action_just_pressed("lclick"):
 				state = "attack1"
+				swipe_sound_played = false
 				$AnimatedSprite.play("attack1")
 				$AnimatedSprite.offset.x = 5 * dir
 				$Hitbox.setup(Attack1, dir)
@@ -66,27 +69,31 @@ func _process(delta):
 				elif has_jump:
 					motion.y = JUMP_HEIGHT
 					has_jump = false
-			elif Input.is_action_pressed("d"):
-				motion.x = min(motion.x + ACCEL, MAX_SPEED)
-				dir = 1
-				$AnimatedSprite.flip_h = false
-				$AnimatedSprite.play("run")
-				$AnimatedSprite.offset.x = -7
-				friction = false
-			elif Input.is_action_pressed("a"):
-				motion.x = max(motion.x - ACCEL, -MAX_SPEED)
-				dir = -1
-				$AnimatedSprite.flip_h = true
-				$AnimatedSprite.play("run")
-				$AnimatedSprite.offset.x = 7
-				friction = false
-			else:
+			elif not Input.is_action_pressed("d") and not Input.is_action_pressed("a"):
 				$AnimatedSprite.play("idle")
 				$AnimatedSprite.offset.x = -7 * dir
+			else:
+				if frame_in_range(2, 2) or frame_in_range(5, 5):
+					get_node("/root/World/Footstep").play()
+				if Input.is_action_pressed("d"):
+					motion.x = min(motion.x + ACCEL, MAX_SPEED)
+					dir = 1
+					$AnimatedSprite.flip_h = false
+					$AnimatedSprite.play("run")
+					$AnimatedSprite.offset.x = -7
+					friction = false
+				elif Input.is_action_pressed("a"):
+					motion.x = max(motion.x - ACCEL, -MAX_SPEED)
+					dir = -1
+					$AnimatedSprite.flip_h = true
+					$AnimatedSprite.play("run")
+					$AnimatedSprite.offset.x = 7
+					friction = false
 		"roll":
 			friction = false
 			if Input.is_action_just_pressed("lclick"):
 				state = "attack1"
+				swipe_sound_played = false
 				$AnimatedSprite.play("attack1")
 				$AnimatedSprite.offset.x = 5 * dir
 				$Hitbox.setup(Attack1, dir)
@@ -105,33 +112,43 @@ func _process(delta):
 		"attack1":
 			if frame_in_range(0, 1):
 				$Hitbox.set_physics_process(true)
+				if not swipe_sound_played:
+					get_node("/root/World/Swipe").play()
+					swipe_sound_played = true
 			else:
 				$Hitbox.set_physics_process(false)
 				if frame_in_range(2, 4) and Input.is_action_just_pressed("lclick"):
 					state = "attack2"
+					swipe_sound_played = false
 					$AnimatedSprite.play("attack2")
 					$AnimatedSprite.offset.x = 19 * dir
 					$Hitbox.setup(Attack2, dir)
 		"attack2":
 			if frame_in_range(1, 2):
 				$Hitbox.set_physics_process(true)
+				if not swipe_sound_played:
+					get_node("/root/World/Swipe").play()
+					swipe_sound_played = true
 			else:
 				$Hitbox.set_physics_process(false)
 				if frame_in_range(3, 4) and Input.is_action_just_pressed("lclick"):
 					state = "attack3"
+					swipe_sound_played = false
 					$AnimatedSprite.play("attack3")
 					$AnimatedSprite.offset.x = 19 * dir
 					$Hitbox.setup(Attack3, dir)
 		"attack3":
 			if frame_in_range(2, 3):
 				$Hitbox.set_physics_process(true)
+				if not swipe_sound_played:
+					get_node("/root/World/Swipe").play()
+					swipe_sound_played = true
 			else:
 				$Hitbox.set_physics_process(false)
 		"knockback":
 			if motion.x < 1:
 				state = "move"
 		"death":
-			print("==")
 			var rng = RandomNumberGenerator.new()
 			rng.randomize()
 			for frame in range(10): # 10 is number of skeleton bones
@@ -148,6 +165,17 @@ func _process(delta):
 					bone.set_rotation_degrees(rng.randi_range(1, 360))
 				
 				get_node("/root/World").add_child(bone)
+			
+#			store info in save file
+			var save_dict = {"kills": kills}
+			var save_file = File.new()
+			save_file.open("user://save_game.save", File.WRITE)
+			save_file.store_line(to_json(save_dict))
+			save_file.close()
+			
+#			TODO: add highscore
+			
+			emit_signal("game_over")
 			
 			queue_free()
 

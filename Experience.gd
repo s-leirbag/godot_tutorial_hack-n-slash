@@ -33,6 +33,7 @@ func point_direction(pos1, pos2):
 
 func _on_Experience_body_entered(body):
 	if body.name == "Player":
+		get_node("/root/World/Exp").play()
 		body.experience += 1
 		if body.experience >= body.max_experience:
 			body.level += 1

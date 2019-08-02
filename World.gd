@@ -53,3 +53,10 @@ func _process(delta):
 #		print(str("spawned at x: ", enemy.position.x, " y: ", enemy.position.y))
 
 		add_child(enemy)
+
+func _on_Player_game_over():
+#	TODO: stop processing
+	$GameoverTimer.start()
+
+func _on_GameoverTimer_timeout():
+	get_tree().change_scene("res://Gameover.tscn")

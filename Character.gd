@@ -15,6 +15,7 @@ var dir = 1
 var motion = Vector2()
 var invulnerable = false
 var experience_yield
+var swipe_sound_played
 
 var rng
 
@@ -70,6 +71,7 @@ func take_hit(damage, knockback, new_dir):
 			elif filename == "res://Boss.tscn":
 				$AnimatedSprite.play("idle")
 				$AnimatedSprite.offset = Vector2(2 * dir, 2)
+
 func frame_in_range(low, high):
 	return $AnimatedSprite.frame >= low and $AnimatedSprite.frame <= high
 

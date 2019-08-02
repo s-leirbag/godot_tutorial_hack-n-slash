@@ -34,6 +34,7 @@ func _process(delta):
 				var distance_to_player = position.distance_to(get_node("/root/World/Player").position)
 				if distance_to_player <= ATTACK_RANGE:
 					state = "attack"
+					swipe_sound_played = false
 					$AnimatedSprite.play("attack")
 					$AnimatedSprite.offset.x = 16 * dir
 					$Hitbox.setup(Attack, dir)
@@ -48,6 +49,9 @@ func _process(delta):
 		"attack":
 			if frame_in_range(4, 5):
 				$Hitbox.set_physics_process(true)
+				if not swipe_sound_played:
+					get_node("/root/World/Swipe").play()
+					swipe_sound_played = true
 			else:
 				$Hitbox.set_physics_process(false)
 		"knockback":
