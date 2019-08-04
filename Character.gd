@@ -52,7 +52,7 @@ func take_hit(damage, knockback, new_dir):
 			elif filename == "res://Crow.tscn":
 		#		feathers effect
 				var particle_emitter = ParticleEmitterScene.instance()
-				particle_emitter.setup(1, 4, 6, position.x + rand_range(-4, 4) + dir * 4, position.y + rand_range(-4, 4))
+				particle_emitter.setup(1, 6, position.x + rand_range(-4, 4) + dir * 4, position.y + rand_range(-4, 4))
 				get_node("/root/World").add_child(particle_emitter)
 				queue_free()
 	else:

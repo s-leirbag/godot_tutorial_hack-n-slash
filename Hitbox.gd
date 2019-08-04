@@ -87,7 +87,7 @@ func _physics_process(delta):
 			
 #			particle effect
 			var particle_emitter = ParticleEmitterScene.instance()
-			particle_emitter.setup(0, 4, 10, body.position.x + body.dir * 4, body.position.y)
+			particle_emitter.setup(0, 10, body.position.x + body.dir * 4, body.position.y)
 			get_node("/root/World").add_child(particle_emitter)
 			
 			body.take_hit(damage, knockback, -1 if get_parent().position.x < body.position.x else 1) # new_dir can also be -get_parent().dir, but this may be better

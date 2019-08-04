@@ -17,7 +17,7 @@ func _process(delta):
 	position += motion * delta
 	
 	if gravity:
-		motion.y += 2000 * delta
+		motion.y += 1800 * delta
 
 func _on_ParticleTimer_timeout():
 	queue_free()
