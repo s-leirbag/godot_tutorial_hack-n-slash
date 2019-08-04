@@ -12,7 +12,7 @@ func _process(delta):
 		motion.y = 0
 		
 #		for debugging
-		position.y -= 20
-		set_process(false)
+#		position.y -= 20
+#		set_process(false)
 	
 	motion = move_and_slide(motion, UP)

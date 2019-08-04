@@ -7,6 +7,7 @@ func _ready():
 
 func _process(delta):
 	set_position(get_node("/root/World/Camera2D").get_camera_position() - Vector2(160, 90))
+	$LevelLabel.rect_position.x = $KillsLabel.rect_position.x + $KillsLabel.rect_size.x + 1 + 5
 	
 	var hp_percent
 	if has_node("/root/World/Player"):
@@ -22,3 +23,4 @@ func _process(delta):
 		$KillsLabel.text = text
 		text = str("Level: ", get_node("/root/World/Player").level)
 		$LevelLabel.text = text
+		$DebugLabel.text = str("Player state: ", get_node("/root/World/Player").state) # for debugging

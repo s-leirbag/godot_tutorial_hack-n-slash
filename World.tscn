@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/Environment/s_clouds.png" type="Texture" id=2]
@@ -10,14 +10,12 @@
 [ext_resource path="res://HUD.gd" type="Script" id=8]
 [ext_resource path="res://MonochromeGray.theme" type="Theme" id=9]
 [ext_resource path="res://ParticleEmitter.tscn" type="PackedScene" id=10]
-[ext_resource path="res://assets/sounds/a_music.wav" type="AudioStream" id=11]
-[ext_resource path="res://assets/sounds/a_expr.wav" type="AudioStream" id=12]
-[ext_resource path="res://assets/sounds/a_footstep.wav" type="AudioStream" id=13]
-[ext_resource path="res://assets/sounds/a_hit.wav" type="AudioStream" id=14]
-[ext_resource path="res://assets/sounds/a_medium_hit.wav" type="AudioStream" id=15]
-[ext_resource path="res://assets/sounds/a_big_hit.wav" type="AudioStream" id=16]
-[ext_resource path="res://assets/sounds/a_miss.wav" type="AudioStream" id=17]
-[ext_resource path="res://Boss.tscn" type="PackedScene" id=18]
+[ext_resource path="res://assets/sounds/a_expr.wav" type="AudioStream" id=11]
+[ext_resource path="res://assets/sounds/a_footstep.wav" type="AudioStream" id=12]
+[ext_resource path="res://assets/sounds/a_hit.wav" type="AudioStream" id=13]
+[ext_resource path="res://assets/sounds/a_medium_hit.wav" type="AudioStream" id=14]
+[ext_resource path="res://assets/sounds/a_big_hit.wav" type="AudioStream" id=15]
+[ext_resource path="res://assets/sounds/a_miss.wav" type="AudioStream" id=16]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends TileMap
@@ -31,6 +29,9 @@ func _ready():
 	
 	for x in range(51, 60):
 		set_cell(x, 6, rng.randi_range(-1, 2))"
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 1, 1 )
 
 [node name="World" type="Node"]
 script = ExtResource( 1 )
@@ -99,6 +100,28 @@ format = 1
 tile_data = PoolIntArray( 458741, 3, 0, 393266, 3, 0 )
 script = SubResource( 1 )
 
+[node name="LeftBoundary" type="StaticBody2D" parent="Environment"]
+editor/display_folded = true
+position = Vector2( -161, 128 )
+scale = Vector2( 1, 128 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/LeftBoundary"]
+shape = SubResource( 2 )
+
+[node name="RightBoundary" type="StaticBody2D" parent="Environment"]
+editor/display_folded = true
+position = Vector2( 801, 128 )
+scale = Vector2( 1, 128 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/RightBoundary"]
+shape = SubResource( 2 )
+
 [node name="Player" parent="." groups=[
 "characters",
 ] instance=ExtResource( 6 )]
@@ -123,7 +146,6 @@ wait_time = 0.2
 one_shot = true
 
 [node name="HUD" type="Node2D" parent="."]
-editor/display_folded = true
 script = ExtResource( 8 )
 
 [node name="HealthBar" type="ProgressBar" parent="HUD"]
@@ -138,17 +160,26 @@ percent_visible = false
 margin_left = 8.0
 margin_top = 20.0
 margin_right = 65.0
-margin_bottom = 40.0
+margin_bottom = 35.0
 theme = ExtResource( 9 )
 text = "Kills: 0"
 
 [node name="LevelLabel" type="Label" parent="HUD"]
 margin_left = 71.0
 margin_top = 20.0
-margin_right = 138.0
-margin_bottom = 40.0
+margin_right = 127.0
+margin_bottom = 35.0
 theme = ExtResource( 9 )
-text = "Level: 1"
+text = "Level: 0"
+
+[node name="DebugLabel" type="Label" parent="HUD"]
+visible = false
+margin_left = 8.0
+margin_top = 41.0
+margin_right = 122.0
+margin_bottom = 56.0
+theme = ExtResource( 9 )
+text = "Player state: "
 
 [node name="ParticleEmitter" parent="." instance=ExtResource( 10 )]
 position = Vector2( 343.283, 238.95 )
@@ -156,37 +187,29 @@ position = Vector2( 343.283, 238.95 )
 [node name="GameoverTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 11 )
-volume_db = -12.0
-autoplay = true
-
 [node name="Exp" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 12 )
+stream = ExtResource( 11 )
 volume_db = -13.0
 
 [node name="Footstep" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 13 )
+stream = ExtResource( 12 )
 volume_db = -17.0
 
 [node name="Hit" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 14 )
+stream = ExtResource( 13 )
 volume_db = -13.0
 
 [node name="MediumHit" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 15 )
+stream = ExtResource( 14 )
 volume_db = -13.0
 
 [node name="BigHit" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 16 )
+stream = ExtResource( 15 )
 volume_db = -13.0
 
 [node name="Swipe" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 17 )
+stream = ExtResource( 16 )
 volume_db = -25.0
-
-[node name="Boss" parent="." instance=ExtResource( 18 )]
-position = Vector2( 407.392, 254.905 )
 [connection signal="game_over" from="Player" to="." method="_on_Player_game_over"]
 [connection signal="timeout" from="Camera2D/ShakeTimer" to="Camera2D" method="_on_ShakeTimer_timeout"]
 [connection signal="timeout" from="Camera2D/EndShakeTimer" to="Camera2D" method="_on_EndShakeTimer_timeout"]

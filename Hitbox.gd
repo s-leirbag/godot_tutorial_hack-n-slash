@@ -63,9 +63,10 @@ func _physics_process(delta):
 #		if body is an enemy
 #		and body is not this hitbox's owner
 #		and body is not dead
+#		and body is not in knockback state
 #		and body is not invulnerable
 #		and body isn't already hit
-		if body.is_in_group(enemy_group) and not is_owner(body) and not body.state == "death" and not body.invulnerable and hit.find(body) == -1:
+		if body.is_in_group(enemy_group) and not is_owner(body) and not body.state == "death" and not body.state == "knockback" and not body.invulnerable and hit.find(body) == -1:
 #			screenshake
 			if body.name == "Player":
 				get_node("/root/World/Camera2D").add_screenshake(20)

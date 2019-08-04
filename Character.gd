@@ -61,7 +61,10 @@ func take_hit(damage, knockback, new_dir):
 		$AnimatedSprite.flip_h = false if dir == 1 else true
 		motion = Vector2(knockback.x * -dir, knockback.y)
 		
-		if filename != "res://Player.tscn":
+		if filename == "res://Player.tscn":
+			$AnimatedSprite.play("hitstun")
+			$AnimatedSprite.offset.x = -7 * dir
+		else:
 			$HealthBar.visible = true
 			$HealthBarTimer.start()
 			

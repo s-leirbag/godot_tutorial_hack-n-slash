@@ -55,7 +55,7 @@ func _process(delta):
 			else:
 				$Hitbox.set_physics_process(false)
 		"knockback":
-			if motion.x < 1:
+			if abs(motion.x) < 1:
 				state = "chase"
 				$AnimatedSprite.play("idle")
 				$AnimatedSprite.offset.x = -3 * dir

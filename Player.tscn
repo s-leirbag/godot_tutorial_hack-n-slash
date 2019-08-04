@@ -77,7 +77,7 @@ animations = [ {
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 5.0
 
-[node name="Player" index="0" groups=[
+[node name="Player" groups=[
 "player",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )

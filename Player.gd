@@ -146,7 +146,7 @@ func _process(delta):
 			else:
 				$Hitbox.set_physics_process(false)
 		"knockback":
-			if motion.x < 1:
+			if abs(motion.x) < 10:
 				state = "move"
 		"death":
 			var rng = RandomNumberGenerator.new()
@@ -173,7 +173,7 @@ func _process(delta):
 			content.score = kills
 			if not content.has("highscore") or kills > content.highscore:
 				content.highscore = kills
-			save_file.seek(0) # this line necessary????
+			save_file.seek(0)
 			save_file.store_line(to_json(content))
 			save_file.close()
 			
@@ -191,6 +191,10 @@ func _process(delta):
 
 func _on_AnimatedSprite_animation_finished():
 	if state == "roll" or state == "attack1" or state == "attack2" or state == "attack3":
+		if state == "attack1": # so attack1 animation can't get stuck when play attacks on frame right after this
+			$AnimatedSprite.play("idle")
+			$AnimatedSprite.offset.x = -7 * dir
+		
 		state = "move"
 		if invulnerable:
 			invulnerable = false

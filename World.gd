@@ -8,6 +8,13 @@ var rng
 
 func _ready():
 	rng = RandomNumberGenerator.new()
+	
+#	clear save file, store an empty dict
+	var save_file = File.new()
+	save_file.open("user://save_game.save", File.WRITE)
+	save_file.seek(0) # this line necessary????
+	save_file.store_line(to_json({}))
+	save_file.close()
 
 func _process(delta):
 	var enemies = get_tree().get_nodes_in_group("enemies")
