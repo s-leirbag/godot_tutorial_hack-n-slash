@@ -146,6 +146,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="HUD" type="Node2D" parent="."]
+editor/display_folded = true
 script = ExtResource( 8 )
 
 [node name="HealthBar" type="ProgressBar" parent="HUD"]
@@ -171,15 +172,6 @@ margin_right = 127.0
 margin_bottom = 35.0
 theme = ExtResource( 9 )
 text = "Level: 0"
-
-[node name="DebugLabel" type="Label" parent="HUD"]
-visible = false
-margin_left = 8.0
-margin_top = 41.0
-margin_right = 122.0
-margin_bottom = 56.0
-theme = ExtResource( 9 )
-text = "Player state: "
 
 [node name="ParticleEmitter" parent="." instance=ExtResource( 10 )]
 position = Vector2( 343.283, 238.95 )

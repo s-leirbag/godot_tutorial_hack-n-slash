@@ -23,4 +23,3 @@ func _process(delta):
 		$KillsLabel.text = text
 		text = str("Level: ", get_node("/root/World/Player").level)
 		$LevelLabel.text = text
-		$DebugLabel.text = str("Player state: ", get_node("/root/World/Player").state) # for debugging
