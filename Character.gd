@@ -1,11 +1,7 @@
 # Character.gd
 extends KinematicBody2D
 
-var ExperienceScene = load("res://Experience.tscn")
-var ParticleEmitterScene = load("res://ParticleEmitter.tscn")
-
 # Movement constants
-const UP = Vector2(0, -1)
 const GRAVITY = 1050
 
 var hp
@@ -31,9 +27,9 @@ func take_hit(damage, knockback, new_dir):
 #		make experience
 		rng.randomize()
 		for i in range(min(experience_yield, 100)):
-			var experience_instance = ExperienceScene.instance()
+			var experience_instance = Globals.ExperienceScene.instance()
 			experience_instance.set_position(position + Vector2(rng.randi_range(-4, 4), rng.randi_range(-4, 4)))
-			get_parent().add_child(experience_instance)
+			get_node("/root/World").add_child(experience_instance)
 		
 		if filename != "res://Player.tscn":
 			get_node("/root/World/Player").kills += 1
@@ -51,7 +47,7 @@ func take_hit(damage, knockback, new_dir):
 				$AnimatedSprite.flip_h = false if dir == 1 else true
 			elif filename == "res://Crow.tscn":
 		#		feathers effect
-				var particle_emitter = ParticleEmitterScene.instance()
+				var particle_emitter = Globals.ParticleEmitterScene.instance()
 				particle_emitter.setup(1, 6, position.x + rand_range(-4, 4) + dir * 4, position.y + rand_range(-4, 4))
 				get_node("/root/World").add_child(particle_emitter)
 				queue_free()

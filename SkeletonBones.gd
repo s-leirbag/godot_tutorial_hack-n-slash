@@ -1,6 +1,5 @@
 extends KinematicBody2D
 
-const UP = Vector2(0, -1)
 const GRAVITY = 20
 
 var motion = Vector2()
@@ -15,4 +14,4 @@ func _process(delta):
 #		position.y -= 20
 #		set_process(false)
 	
-	motion = move_and_slide(motion, UP)
+	motion = move_and_slide(motion, Globals.UP)

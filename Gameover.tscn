@@ -63,4 +63,4 @@ align = 1
 
 [node name="RestartLabelTimer" type="Timer" parent="."]
 one_shot = true
-autostart = true
+[connection signal="timeout" from="RestartLabelTimer" to="." method="_on_RestartLabelTimer_timeout"]

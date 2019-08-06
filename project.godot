@@ -21,6 +21,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
+Globals="*res://Globals.gd"
 Music="*res://Music.tscn"
 
 [display]

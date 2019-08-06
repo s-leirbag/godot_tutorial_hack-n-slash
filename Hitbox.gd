@@ -1,8 +1,6 @@
 # Hitbox.gd
 extends Area2D
 
-var ParticleEmitterScene = load("res://ParticleEmitter.tscn")
-
 var owner_path
 var enemy_group
 var damage = 1
@@ -83,10 +81,10 @@ func _physics_process(delta):
 #			add body to list of hit bodies
 			hit.push_back(body)
 			
-			get_node("/root/World/MediumHit").play()
+			get_node("/root/World/Sounds/MediumHit").play()
 			
 #			particle effect
-			var particle_emitter = ParticleEmitterScene.instance()
+			var particle_emitter = Globals.ParticleEmitterScene.instance()
 			particle_emitter.setup(0, 10, body.position.x + body.dir * 4, body.position.y)
 			get_node("/root/World").add_child(particle_emitter)
 			

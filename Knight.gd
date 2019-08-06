@@ -50,7 +50,7 @@ func _process(delta):
 			if frame_in_range(4, 5):
 				$Hitbox.set_physics_process(true)
 				if not swipe_sound_played:
-					get_node("/root/World/Swipe").play()
+					get_node("/root/World/Sounds/Swipe").play()
 					swipe_sound_played = true
 			else:
 				$Hitbox.set_physics_process(false)
@@ -71,7 +71,7 @@ func _process(delta):
 #		else:
 #			motion.x = lerp(motion.x, 0, 0.05)
 	
-	motion = move_and_slide(motion, UP)
+	motion = move_and_slide(motion, Globals.UP)
 	
 	var hp_percent
 	draw_hp = lerp(draw_hp, hp, 0.2)

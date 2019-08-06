@@ -39,6 +39,13 @@ func _process(delta):
 	match state:
 		"move":
 			if Input.is_action_just_pressed("lclick"):
+				if Input.is_action_pressed("d"):
+					dir = 1
+					$AnimatedSprite.flip_h = false
+				elif Input.is_action_pressed("a"):
+					dir = -1
+					$AnimatedSprite.flip_h = true
+				
 				state = "attack1"
 				swipe_sound_played = false
 				$AnimatedSprite.play("attack1")
@@ -74,7 +81,7 @@ func _process(delta):
 				$AnimatedSprite.offset.x = -7 * dir
 			else:
 				if frame_in_range(2, 2) or frame_in_range(5, 5):
-					get_node("/root/World/Footstep").play()
+					get_node("/root/World/Sounds/Footstep").play()
 				if Input.is_action_pressed("d"):
 					motion.x = min(motion.x + ACCEL, MAX_SPEED)
 					dir = 1
@@ -92,6 +99,13 @@ func _process(delta):
 		"roll":
 			friction = false
 			if Input.is_action_just_pressed("lclick"):
+				if Input.is_action_pressed("d"):
+					dir = 1
+					$AnimatedSprite.flip_h = false
+				elif Input.is_action_pressed("a"):
+					dir = -1
+					$AnimatedSprite.flip_h = true
+				
 				state = "attack1"
 				swipe_sound_played = false
 				$AnimatedSprite.play("attack1")
@@ -113,11 +127,18 @@ func _process(delta):
 			if frame_in_range(0, 1):
 				$Hitbox.set_physics_process(true)
 				if not swipe_sound_played:
-					get_node("/root/World/Swipe").play()
+					get_node("/root/World/Sounds/Swipe").play()
 					swipe_sound_played = true
 			else:
 				$Hitbox.set_physics_process(false)
 				if frame_in_range(2, 4) and Input.is_action_just_pressed("lclick"):
+					if Input.is_action_pressed("d"):
+						dir = 1
+						$AnimatedSprite.flip_h = false
+					elif Input.is_action_pressed("a"):
+						dir = -1
+						$AnimatedSprite.flip_h = true
+					
 					state = "attack2"
 					swipe_sound_played = false
 					$AnimatedSprite.play("attack2")
@@ -127,11 +148,17 @@ func _process(delta):
 			if frame_in_range(1, 2):
 				$Hitbox.set_physics_process(true)
 				if not swipe_sound_played:
-					get_node("/root/World/Swipe").play()
+					get_node("/root/World/Sounds/Swipe").play()
 					swipe_sound_played = true
 			else:
 				$Hitbox.set_physics_process(false)
 				if frame_in_range(3, 4) and Input.is_action_just_pressed("lclick"):
+					if Input.is_action_pressed("d"):
+						dir = 1
+						$AnimatedSprite.flip_h = false
+					elif Input.is_action_pressed("a"):
+						dir = -1
+						$AnimatedSprite.flip_h = true
 					state = "attack3"
 					swipe_sound_played = false
 					$AnimatedSprite.play("attack3")
@@ -141,7 +168,7 @@ func _process(delta):
 			if frame_in_range(2, 3):
 				$Hitbox.set_physics_process(true)
 				if not swipe_sound_played:
-					get_node("/root/World/Swipe").play()
+					get_node("/root/World/Sounds/Swipe").play()
 					swipe_sound_played = true
 			else:
 				$Hitbox.set_physics_process(false)
@@ -187,7 +214,7 @@ func _process(delta):
 		else:
 			motion.x = lerp(motion.x, 0, 0.05)
 	
-	motion = move_and_slide(motion, UP)
+	motion = move_and_slide(motion, Globals.UP)
 
 func _on_AnimatedSprite_animation_finished():
 	if state == "roll" or state == "attack1" or state == "attack2" or state == "attack3":

@@ -26,7 +26,7 @@ func _process(delta):
 		else:
 			modulate.g += delta
 			modulate.b += delta
-		
+	else:
 #		press key to restart game
 		if Input.is_action_just_pressed("ui_accept"):
 			get_tree().change_scene("res://World.tscn")

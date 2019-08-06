@@ -8,6 +8,7 @@ radius = 2.26995
 
 [node name="Experience" type="Area2D"]
 scale = Vector2( 1.2, 1.2 )
+z_index = 2
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

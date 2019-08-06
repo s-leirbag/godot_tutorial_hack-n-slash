@@ -62,13 +62,13 @@ func _process(delta):
 			if frame_in_range(7, 8):
 				$Hitbox.set_physics_process(true)
 				if not swipe_sound_played:
-					get_node("/root/World/BigHit").play()
-					get_node("/root/World/MediumHit").play()
+					get_node("/root/World/Sounds/BigHit").play()
+					get_node("/root/World/Sounds/MediumHit").play()
 					swipe_sound_played = true
 			else:
 				$Hitbox.set_physics_process(false)
 		"knockback":
-			if motion.x < 1:
+			if abs(motion.x) < 1:
 				state = "chase"
 				$AnimatedSprite.play("walk")
 				$AnimatedSprite.offset = Vector2(-2 * dir, -1)
@@ -83,7 +83,7 @@ func _process(delta):
 #		else:
 #			motion.x = lerp(motion.x, 0, 0.05)
 	
-	motion = move_and_slide(motion, UP)
+	motion = move_and_slide(motion, Globals.UP)
 	
 	var hp_percent
 	draw_hp = lerp(draw_hp, hp, 0.2)
